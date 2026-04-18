@@ -12,4 +12,53 @@
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1" />
   </ItemGroup>
 
+  <!--
+    Post-build: deploy the Content Patcher pack to the game's Mods folder.
+
+    What it does:
+      1. Deletes $(ModsDir)/SpecialCows.CP/ to clear any stale files from a
+         previous deploy (renamed assets, removed entries, etc.).
+      2. Copies the entire SpecialCows.CP/ directory from the repo root into
+         $(ModsDir)/SpecialCows.CP/ so the pack is immediately live.
+
+    Overriding ModsDir:
+      The default targets the standard macOS Steam install path. To point at a
+      different location — a GOG install, a Linux path, or a shared network
+      Mods folder — override ModsDir in a SpecialCows.csproj.user file
+      (which is .gitignored) or pass it on the command line:
+
+        dotnet build /p:ModsDir="/path/to/Stardew Valley/Mods"
+
+      Example SpecialCows.csproj.user:
+        <Project>
+          <PropertyGroup>
+            <ModsDir>/path/to/Stardew Valley/Mods</ModsDir>
+          </PropertyGroup>
+        </Project>
+  -->
+  <PropertyGroup>
+    <ModsDir Condition="'$(ModsDir)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/Stardew Valley/Mods</ModsDir>
+  </PropertyGroup>
+
+  <Target Name="DeployCPPack" AfterTargets="Build">
+    <PropertyGroup>
+      <_CPSource>$(MSBuildProjectDirectory)\..\SpecialCows.CP</_CPSource>
+      <_CPDest>$(ModsDir)\SpecialCows.CP</_CPDest>
+    </PropertyGroup>
+
+    <!-- Step 1: Remove stale destination directory so deleted/renamed files don't linger. -->
+    <RemoveDir Directories="$(_CPDest)" Condition="Exists('$(_CPDest)')" />
+
+    <!-- Step 2: Copy the full SpecialCows.CP/ tree into the Mods folder. -->
+    <ItemGroup>
+      <_CPFiles Include="$(_CPSource)\**\*.*" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(_CPFiles)"
+      DestinationFiles="@(_CPFiles->'$(_CPDest)\%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="false" />
+
+    <Message Importance="high" Text="Deployed SpecialCows.CP → $(_CPDest)" />
+  </Target>
+
 </Project>
