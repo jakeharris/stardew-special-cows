@@ -16,9 +16,9 @@ namespace SpecialCows
         {
             // Step 1: Check that the player's active item is one of the three teas.
             // TODO: compare player.ActiveItem?.ItemId against the qualified item IDs for
-            //   "(O)jakeharris.SpecialCows.CP_StrawberryTransformationTea",
-            //   "(O)jakeharris.SpecialCows.CP_ChocolateTransformationTea",
-            //   "(O)jakeharris.SpecialCows.CP_ReversalTea"
+            //   "(O)StrawberryMilkMafia.SpecialCows.CP_StrawberryTransformationTea",
+            //   "(O)StrawberryMilkMafia.SpecialCows.CP_ChocolateTransformationTea",
+            //   "(O)StrawberryMilkMafia.SpecialCows.CP_ReversalTea"
             //   and determine which transformation to perform.
 
             // Step 2: Find the cow tile under the cursor.

@@ -4,8 +4,8 @@
       "Action": "EditData",
       "Target": "Data/Mail",
       "Entries": {
-        "jakeharris.SpecialCows_CarolineTea": "Dear @,^^ I've been experimenting with some unusual herbal blends lately, and I think I've stumbled onto something special. The tea I've enclosed has a remarkable effect on the livestock — give it a try on one of your cows sometime.^^I hope it brightens your farm!^^  — Caroline^ %item cookingRecipe Strawberry Ice Cream %%[#]^A letter from Caroline containing a recipe.",
-        "jakeharris.SpecialCows_MarnieTea": "Hello @,^^ I know it sounds strange, but I've seen this tea work with my own eyes. The cows love it, and the milk they give afterward is something else entirely. Try it on one of your girls — you won't regret it.^^Take good care of those animals!^^  — Marnie^ %item cookingRecipe Hot Chocolate %%[#]^A letter from Marnie containing a recipe."
+        "StrawberryMilkMafia.SpecialCows_CarolineTea": "Dear @,^^ I've been experimenting with some unusual herbal blends lately, and I think I've stumbled onto something special. The tea I've enclosed has a remarkable effect on the livestock — give it a try on one of your cows sometime.^^I hope it brightens your farm!^^  — Caroline^ %item cookingRecipe Strawberry Ice Cream %%[#]^A letter from Caroline containing a recipe.",
+        "StrawberryMilkMafia.SpecialCows_MarnieTea": "Hello @,^^ I know it sounds strange, but I've seen this tea work with my own eyes. The cows love it, and the milk they give afterward is something else entirely. Try it on one of your girls — you won't regret it.^^Take good care of those animals!^^  — Marnie^ %item cookingRecipe Hot Chocolate %%[#]^A letter from Marnie containing a recipe."
       },
       "CustomFields": {
         "_TODO_copy": "Finalize letter text with writer — tone should match each NPC's vanilla voice",
