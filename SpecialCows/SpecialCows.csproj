@@ -37,7 +37,7 @@
         </Project>
   -->
   <PropertyGroup>
-    <ModsDir Condition="'$(ModsDir)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/Stardew Valley/Mods</ModsDir>
+    <ModsDir Condition="'$(ModsDir)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/Stardew Valley/Contents/MacOS/Mods</ModsDir>
   </PropertyGroup>
 
   <Target Name="DeployCPPack" AfterTargets="Build">
