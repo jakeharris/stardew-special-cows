@@ -1,0 +1,10 @@
+{
+  "Name": "Special Cows (Content)",
+  "Author": "jakeharris",
+  "Version": "1.0.0",
+  "Description": "Content Patcher pack for Special Cows — items, recipes, mail, and sprites.",
+  "UniqueID": "jakeharris.SpecialCows.CP",
+  "ContentPackFor": {
+    "UniqueID": "Pathoschild.ContentPatcher"
+  }
+}

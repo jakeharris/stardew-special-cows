@@ -1,0 +1,17 @@
+{
+  "Format": "2.3.0",
+  "Changes": [
+    {
+      "Action": "Include",
+      "FromFile": "assets/data/items.json"
+    },
+    {
+      "Action": "Include",
+      "FromFile": "assets/data/recipes.json"
+    },
+    {
+      "Action": "Include",
+      "FromFile": "assets/data/mail.json"
+    }
+  ]
+}

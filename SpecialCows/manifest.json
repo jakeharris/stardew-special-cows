@@ -1,0 +1,9 @@
+{
+  "Name": "Special Cows",
+  "Author": "jakeharris",
+  "Version": "1.0.0",
+  "Description": "Adds strawberry and chocolate cow variants via transformation tea.",
+  "UniqueID": "jakeharris.SpecialCows",
+  "MinimumApiVersion": "4.0.0",
+  "EntryDll": "SpecialCows.dll"
+}

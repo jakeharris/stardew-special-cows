@@ -1,0 +1,17 @@
+{
+  "Changes": [
+    {
+      "Action": "EditData",
+      "Target": "Data/CookingRecipes",
+      "Entries": {
+        "Strawberry Ice Cream": "{{ModId}}_StrawberryMilk 1/ignored/SpecialCows.CP_StrawberryIceCream 1/Strawberry Ice Cream/",
+        "Hot Chocolate": "{{ModId}}_ChocolateMilk 1/ignored/SpecialCows.CP_HotChocolate 1/Hot Chocolate/"
+      },
+      "CustomFields": {
+        "_TODO_ingredients": "Finalize ingredient lists and counts — add secondary ingredients (e.g. Strawberry, Sugar) once items are confirmed",
+        "_TODO_output_items": "StrawberryIceCream and HotChocolate need matching Data/Objects entries added to items.json",
+        "_TODO_unlock": "Recipes are taught via mail (see mail.json); leave conditions field empty to avoid double-unlock"
+      }
+    }
+  ]
+}

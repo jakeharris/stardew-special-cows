@@ -1,0 +1,154 @@
+{
+  "Changes": [
+    {
+      "Action": "EditData",
+      "Target": "Data/Objects",
+      "Entries": {
+        "{{ModId}}_StrawberryMilk": {
+          "Name": "{{ModId}}_StrawberryMilk",
+          "DisplayName": "Strawberry Milk",
+          "Description": "Rich milk from a strawberry cow. Tastes faintly of summer.",
+          "Type": "Basic",
+          "Category": -6,
+          "Price": 180,
+          "Texture": "{{ModId}}/items/StrawberryMilk",
+          "SpriteIndex": 0,
+          "Edibility": 30,
+          "IsDrink": true,
+          "Buffs": null,
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": false,
+          "ContextTags": [ "cow_milk_item", "color_pink" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
+            "_TODO_price": "Target ~180g; adjust after playtesting"
+          }
+        },
+        "{{ModId}}_LargeStrawberryMilk": {
+          "Name": "{{ModId}}_LargeStrawberryMilk",
+          "DisplayName": "Large Strawberry Milk",
+          "Description": "Extra-rich milk from a very happy strawberry cow.",
+          "Type": "Basic",
+          "Category": -6,
+          "Price": 270,
+          "Texture": "{{ModId}}/items/StrawberryMilk",
+          "SpriteIndex": 1,
+          "Edibility": 50,
+          "IsDrink": true,
+          "Buffs": null,
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": false,
+          "ContextTags": [ "cow_milk_item", "large_milk_item", "color_pink" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
+            "_TODO_price": "Target ~270g; adjust after playtesting"
+          }
+        },
+        "{{ModId}}_ChocolateMilk": {
+          "Name": "{{ModId}}_ChocolateMilk",
+          "DisplayName": "Chocolate Milk",
+          "Description": "Velvety milk from a chocolate cow. Naturally sweet.",
+          "Type": "Basic",
+          "Category": -6,
+          "Price": 180,
+          "Texture": "{{ModId}}/items/ChocolateMilk",
+          "SpriteIndex": 0,
+          "Edibility": 30,
+          "IsDrink": true,
+          "Buffs": null,
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": false,
+          "ContextTags": [ "cow_milk_item", "color_brown" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
+            "_TODO_price": "Target ~180g; adjust after playtesting"
+          }
+        },
+        "{{ModId}}_LargeChocolateMilk": {
+          "Name": "{{ModId}}_LargeChocolateMilk",
+          "DisplayName": "Large Chocolate Milk",
+          "Description": "Extra-rich chocolate milk from a very happy cow.",
+          "Type": "Basic",
+          "Category": -6,
+          "Price": 270,
+          "Texture": "{{ModId}}/items/ChocolateMilk",
+          "SpriteIndex": 1,
+          "Edibility": 50,
+          "IsDrink": true,
+          "Buffs": null,
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": false,
+          "ContextTags": [ "cow_milk_item", "large_milk_item", "color_brown" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
+            "_TODO_price": "Target ~270g; adjust after playtesting"
+          }
+        },
+        "{{ModId}}_StrawberryTransformationTea": {
+          "Name": "{{ModId}}_StrawberryTransformationTea",
+          "DisplayName": "Strawberry Transformation Tea",
+          "Description": "A special herbal brew. Use it on an adult cow to transform it into a strawberry cow.",
+          "Type": "Basic",
+          "Category": -7,
+          "Price": 500,
+          "Texture": "{{ModId}}/items/Teas",
+          "SpriteIndex": 0,
+          "Edibility": -300,
+          "IsDrink": false,
+          "Buffs": null,
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": true,
+          "ContextTags": [ "not_giftable" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
+          }
+        },
+        "{{ModId}}_ChocolateTransformationTea": {
+          "Name": "{{ModId}}_ChocolateTransformationTea",
+          "DisplayName": "Chocolate Transformation Tea",
+          "Description": "A rich herbal brew. Use it on an adult cow to transform it into a chocolate cow.",
+          "Type": "Basic",
+          "Category": -7,
+          "Price": 500,
+          "Texture": "{{ModId}}/items/Teas",
+          "SpriteIndex": 1,
+          "Edibility": -300,
+          "IsDrink": false,
+          "Buffs": null,
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": true,
+          "ContextTags": [ "not_giftable" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
+          }
+        },
+        "{{ModId}}_ReversalTea": {
+          "Name": "{{ModId}}_ReversalTea",
+          "DisplayName": "Reversal Tea",
+          "Description": "A plain herbal brew. Reverts a transformed cow back to its original type.",
+          "Type": "Basic",
+          "Category": -7,
+          "Price": 300,
+          "Texture": "{{ModId}}/items/Teas",
+          "SpriteIndex": 2,
+          "Edibility": -300,
+          "IsDrink": false,
+          "Buffs": null,
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": true,
+          "ContextTags": [ "not_giftable" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
+          }
+        }
+      }
+    }
+  ]
+}
