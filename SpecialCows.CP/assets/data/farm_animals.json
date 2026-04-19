@@ -11,8 +11,8 @@
           "BabyTexture": "Animals/Baby White Cow",
           "Texture": "Animals/White Cow",
           "HarvestTool": "Milk Pail",
-          "HarvestType": "Milk",
-          "DaysToLay": 1,
+          "HarvestType": "HarvestWithTool",
+          "DaysToProduce": 1,
           "Produce": [
             {
               "Id": "StrawberryMilk_Regular",
@@ -31,8 +31,7 @@
           "BirthType": "White Cow",
           "CustomFields": {
             "_TODO_texture": "Replace Texture and BabyTexture with dedicated Strawberry Cow sprite sheets once art is ready",
-            "_TODO_harvest_type": "Verify HarvestType string value matches SDV 1.6 FarmAnimalData enum — may need to be an integer (1) rather than 'Milk'",
-            "_TODO_produce_format": "Verify FarmAnimalProduce field names against 1.6 data model; vanilla white cow Data/FarmAnimals entry is the reference"
+            "_TODO_produce_format": "Verify FarmAnimalProduce subfield names against 1.6 data model if produce still doesn't drop"
           }
         },
         "Chocolate Cow": {
@@ -42,8 +41,8 @@
           "BabyTexture": "Animals/Baby White Cow",
           "Texture": "Animals/White Cow",
           "HarvestTool": "Milk Pail",
-          "HarvestType": "Milk",
-          "DaysToLay": 1,
+          "HarvestType": "HarvestWithTool",
+          "DaysToProduce": 1,
           "Produce": [
             {
               "Id": "ChocolateMilk_Regular",
