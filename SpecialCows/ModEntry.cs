@@ -19,6 +19,13 @@ namespace SpecialCows
             "StrawberryMilkMafia.SpecialCows.CP_LargeChocolateMilk",
         };
 
+        private static readonly string[] CookingRecipeNames =
+        {
+            "Strawberry Ice Cream",
+            "Chocolate Ice Cream",
+            "Hot Chocolate",
+        };
+
         private TransformationHandler _handler = null!;
 
         public override void Entry(IModHelper helper)
@@ -29,12 +36,35 @@ namespace SpecialCows
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Player.InventoryChanged += this.OnInventoryChanged;
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
+            helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
         }
+
+        private void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
+        {
+            // Guard against the mail token silently failing to teach recipes (e.g. if the
+            // token referenced the wrong key). If the letter was received, ensure all three
+            // cooking recipes are known regardless of how they were (or weren't) granted.
+            var player = Game1.player;
+            if (!player.mailReceived.Contains(DemetriusMailId)) return;
+
+            foreach (string recipe in CookingRecipeNames)
+            {
+                if (!player.cookingRecipes.ContainsKey(recipe))
+                    player.cookingRecipes.Add(recipe, 0);
+            }
+        }
+
+        // mailReceived is only populated after the player opens the letter, so also check
+        // mailbox (delivered but unread) and mailForTomorrow (queued but not yet delivered).
+        private static bool HasOrWillReceiveMail(Farmer player, string mailId) =>
+            player.mailReceived.Contains(mailId)
+            || player.mailbox.Contains(mailId)
+            || player.mailForTomorrow.Contains(mailId);
 
         private void OnDayStarted(object? sender, DayStartedEventArgs e)
         {
             var player = Game1.player;
-            if (player.mailReceived.Contains(MarnieTeaMailId)) return;
+            if (HasOrWillReceiveMail(player, MarnieTeaMailId)) return;
 
             bool carolineFriendship = player.getFriendshipHeartLevelForNPC("Caroline") >= 2;
             bool sunroomEventSeen = player.eventsSeen.Contains("719926");
@@ -58,7 +88,7 @@ namespace SpecialCows
         private void OnInventoryChanged(object? sender, InventoryChangedEventArgs e)
         {
             if (!Context.IsWorldReady || !e.IsLocalPlayer) return;
-            if (Game1.player.mailReceived.Contains(DemetriusMailId)) return;
+            if (HasOrWillReceiveMail(Game1.player, DemetriusMailId)) return;
 
             bool gotSpecialMilk = e.Added.Any(item => SpecialMilkIds.Contains(item.ItemId));
             if (gotSpecialMilk)

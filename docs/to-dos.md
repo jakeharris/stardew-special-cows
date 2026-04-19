@@ -32,9 +32,8 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
   - Strawberry Transformation Tea: 2× Tea Leaves + 1× Strawberry
   - Chocolate Transformation Tea: 2× Tea Leaves + 1× Coffee Bean
   - Reversal Tea: 2× Tea Leaves + 1× Quartz
-- [ ] **Verify `%item craftingRecipe <name> %%` is a valid SDV 1.6 mail token.** The Marnie
-  letter uses this syntax to teach the three tea recipes on open. If it is not supported,
-  fall back to granting the recipes via C# on the same `DayStarted` trigger.
+- [x] **Verify `%item craftingRecipe <name> %%` is a valid SDV 1.6 mail token.** Confirmed
+  working — all three tea crafting recipes are correctly granted when the Marnie letter is opened.
 - [x] **Gate crafting recipes behind Marnie's letter.** CP `When: HasFlag` condition on
   the `Data/CraftingRecipes` entry ensures recipes are absent until the Marnie letter has
   been received (i.e. `mailReceived` contains `StrawberryMilkMafia.SpecialCows_MarnieTea`).
@@ -47,12 +46,11 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
   `ChocolateIceCream`, `HotChocolate`) in `items.json`, with stats, buffs, and prices.
 - [x] **Finalize ingredient lists** — ice creams require 1× special milk + 1× Sugar (item
   245). Hot Chocolate requires only 1× Chocolate Milk.
-- [ ] **Verify recipe unlock** — the Demetrius letter uses `%item cookingRecipe <name> %%`
-  tokens. Confirm the recipe name strings in `Data/CookingRecipes` (`Strawberry Ice Cream`,
-  `Chocolate Ice Cream`, `Hot Chocolate`) match the token values exactly.
-- [ ] **Decide Chocolate Ice Cream unlock fallback.** Demetrius's letter teaches all three
-  cooking recipes together. If the letter trigger fails or fires before Chocolate Ice Cream
-  is in the data, the recipe will silently not be learned. Verify the grant works in-game.
+- [x] **Verify recipe unlock** — `%item cookingRecipe` tokens require the `Data/CookingRecipes`
+  key (e.g. `Strawberry Ice Cream`), not the item ID. Fixed in mail.json. A `SaveLoaded` hook
+  in `ModEntry.cs` also self-heals: if the Demetrius letter is in `mailReceived` but any recipe
+  is missing, it grants them directly — covers saves affected by the original bug and any future
+  token failures.
 
 ### Mail triggers
 
@@ -79,7 +77,7 @@ only downstream products. No `Data/Machines` work needed.
 
 ## Code
 
-- [ ] **Verify deluxe produce path.** `DeluxeProduceItemIds` (large milk) is registered but
+- [x] **Verify deluxe produce path.** `DeluxeProduceItemIds` (large milk) is registered but
   the game's internal logic that calls `GetProduceID(deluxe: true)` vs. `(deluxe: false)` is
   tied to luck, friendship, and possibly profession bonuses. Test that large milk actually
   drops at high friendship before marking produce complete.
