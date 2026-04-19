@@ -113,6 +113,12 @@ namespace SpecialCows
 
             animal.type.Value = targetType;
 
+            // Clear any produce the animal was holding before transformation so
+            // it can't be milked for the old type's milk. The next dayUpdate()
+            // will call GetProduceID() against the new FarmAnimalData and set
+            // the correct produce.
+            animal.currentProduce.Value = null;
+
             // ReloadTextureIfNeeded(forceReload: true) rebuilds the sprite from
             // the type string. The old reloadData() / reloadSprite() methods
             // were removed in SDV 1.6; ReloadTextureIfNeeded is the replacement.
