@@ -1,0 +1,72 @@
+{
+  "Changes": [
+    {
+      "Action": "EditData",
+      "Target": "Data/FarmAnimals",
+      "Entries": {
+        "Strawberry Cow": {
+          "DisplayName": "Strawberry Cow",
+          "Description": "A magical cow that produces rich strawberry-scented milk.",
+          "Sound": "cow",
+          "BabyTexture": "Animals/Baby White Cow",
+          "Texture": "Animals/White Cow",
+          "HarvestTool": "Milk Pail",
+          "HarvestType": "Milk",
+          "DaysToLay": 1,
+          "Produce": [
+            {
+              "Id": "StrawberryMilk_Regular",
+              "Condition": null,
+              "ItemId": "(O){{ModId}}_StrawberryMilk",
+              "MinimumFriendship": 0
+            },
+            {
+              "Id": "StrawberryMilk_Large",
+              "Condition": null,
+              "ItemId": "(O){{ModId}}_LargeStrawberryMilk",
+              "MinimumFriendship": 800
+            }
+          ],
+          "SoundId": "cow",
+          "BirthType": "White Cow",
+          "CustomFields": {
+            "_TODO_texture": "Replace Texture and BabyTexture with dedicated Strawberry Cow sprite sheets once art is ready",
+            "_TODO_harvest_type": "Verify HarvestType string value matches SDV 1.6 FarmAnimalData enum — may need to be an integer (1) rather than 'Milk'",
+            "_TODO_produce_format": "Verify FarmAnimalProduce field names against 1.6 data model; vanilla white cow Data/FarmAnimals entry is the reference"
+          }
+        },
+        "Chocolate Cow": {
+          "DisplayName": "Chocolate Cow",
+          "Description": "A magical cow that produces velvety chocolate milk.",
+          "Sound": "cow",
+          "BabyTexture": "Animals/Baby White Cow",
+          "Texture": "Animals/White Cow",
+          "HarvestTool": "Milk Pail",
+          "HarvestType": "Milk",
+          "DaysToLay": 1,
+          "Produce": [
+            {
+              "Id": "ChocolateMilk_Regular",
+              "Condition": null,
+              "ItemId": "(O){{ModId}}_ChocolateMilk",
+              "MinimumFriendship": 0
+            },
+            {
+              "Id": "ChocolateMilk_Large",
+              "Condition": null,
+              "ItemId": "(O){{ModId}}_LargeChocolateMilk",
+              "MinimumFriendship": 800
+            }
+          ],
+          "SoundId": "cow",
+          "BirthType": "White Cow",
+          "CustomFields": {
+            "_TODO_texture": "Replace Texture and BabyTexture with dedicated Chocolate Cow sprite sheets once art is ready",
+            "_TODO_harvest_type": "Verify HarvestType string value against SDV 1.6 FarmAnimalData enum",
+            "_TODO_produce_format": "Verify FarmAnimalProduce field names against 1.6 data model"
+          }
+        }
+      }
+    }
+  ]
+}

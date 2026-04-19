@@ -12,6 +12,10 @@
     {
       "Action": "Include",
       "FromFile": "assets/data/mail.json"
+    },
+    {
+      "Action": "Include",
+      "FromFile": "assets/data/farm_animals.json"
     }
   ]
 }

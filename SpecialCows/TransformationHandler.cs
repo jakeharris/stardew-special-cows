@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 
@@ -5,6 +8,27 @@ namespace SpecialCows
 {
     public class TransformationHandler
     {
+        // ── Item IDs (unqualified — matches Item.ItemId in SDV 1.6) ──────────
+        // These must match the keys registered in Data/Objects by the CP pack.
+        // The CP pack's UniqueID is StrawberryMilkMafia.SpecialCows.CP, so
+        // {{ModId}} in content patches resolves to that prefix.
+        private const string StrawberryTeaId = "StrawberryMilkMafia.SpecialCows.CP_StrawberryTransformationTea";
+        private const string ChocolateTeaId  = "StrawberryMilkMafia.SpecialCows.CP_ChocolateTransformationTea";
+        private const string ReversalTeaId   = "StrawberryMilkMafia.SpecialCows.CP_ReversalTea";
+
+        // ── Custom animal type strings (must match Data/FarmAnimals keys) ─────
+        private const string StrawberryCowType = "Strawberry Cow";
+        private const string ChocolateCowType  = "Chocolate Cow";
+
+        // ── modData key for preserving the pre-transformation cow type ────────
+        private const string OriginalTypeKey = "StrawberryMilkMafia.SpecialCows/OriginalType";
+
+        // ── All FarmAnimal.type.Value strings this mod considers "a cow" ──────
+        private static readonly HashSet<string> ValidCowTypes = new()
+        {
+            "White Cow", "Brown Cow", StrawberryCowType, ChocolateCowType
+        };
+
         private readonly IMonitor monitor;
 
         public TransformationHandler(IMonitor monitor)
@@ -14,34 +38,128 @@ namespace SpecialCows
 
         public void TryTransform(Farmer player, GameLocation location)
         {
-            // Step 1: Check that the player's active item is one of the three teas.
-            // TODO: compare player.ActiveItem?.ItemId against the qualified item IDs for
-            //   "(O)StrawberryMilkMafia.SpecialCows.CP_StrawberryTransformationTea",
-            //   "(O)StrawberryMilkMafia.SpecialCows.CP_ChocolateTransformationTea",
-            //   "(O)StrawberryMilkMafia.SpecialCows.CP_ReversalTea"
-            //   and determine which transformation to perform.
+            // ── Step 1: gate on active item being one of the three teas ───────
+            string? teaId = player.ActiveItem?.ItemId;
+            if (teaId != StrawberryTeaId &&
+                teaId != ChocolateTeaId  &&
+                teaId != ReversalTeaId)
+                return;
 
-            // Step 2: Find the cow tile under the cursor.
-            // TODO: iterate location.Animals.Values, check each FarmAnimal's
-            //   GetBoundingBox() against the tile at Game1.currentCursorTile.
-            //   If no match, return early without consuming the item.
+            // ── Step 2: find an animal within 1 tile of the cursor ────────────
+            // GameLocation.Animals is on the base class (SDV 1.6), so this
+            // works for both Farm (outdoor) and AnimalHouse (barn/coop interior)
+            // without any location-type casting.
+            FarmAnimal? animal = FindAnimalAtCursor(location, Game1.currentCursorTile);
+            if (animal is null) return;
 
-            // Step 3: Validate that the animal is an adult cow of the correct base type.
-            // TODO: confirm animal.age.Value >= animal.ageWhenMature.Value
-            //   and that animal.type.Value matches the expected source type:
-            //   "Cow" for strawberry/chocolate teas, variant type for reversal tea.
-            //   Show an informational HUD message and return early if validation fails.
+            // ── Step 3: confirm the animal is a recognised cow type ───────────
+            string currentType = animal.type.Value;
+            if (!ValidCowTypes.Contains(currentType)) return;
 
-            // Step 4: Swap the animal's type and reload its data.
-            // TODO: set animal.type.Value = "<TargetType>" (e.g., "StrawberryCow")
-            //   then call animal.reloadData() to apply the new animal definition and
-            //   update its sprite sheet.
+            // ── Step 4: confirm the cow is an adult ───────────────────────────
+            // FarmAnimal.isAdult() checks age against the FarmAnimalData maturity
+            // threshold, replacing the old ageWhenMature NetInt field (removed
+            // in SDV 1.6).
+            if (!animal.isAdult())
+            {
+                ShowError("This calf is too young to transform.");
+                return;
+            }
 
-            // Step 5: Consume one tea from the player's inventory.
-            // TODO: call player.reduceActiveItemByOne() to consume a single use.
+            // ── Step 5: resolve target type, validate pairing ─────────────────
+            bool isReversal = teaId == ReversalTeaId;
+            string targetType;
 
-            // Step 6: Display a HUD confirmation message.
-            // TODO: Game1.addHUDMessage(new HUDMessage("...", HUDMessage.achievement_type));
+            if (teaId == StrawberryTeaId)
+            {
+                if (currentType == StrawberryCowType)
+                {
+                    ShowError("This cow is already a strawberry cow.");
+                    return;
+                }
+                targetType = StrawberryCowType;
+            }
+            else if (teaId == ChocolateTeaId)
+            {
+                if (currentType == ChocolateCowType)
+                {
+                    ShowError("This cow is already a chocolate cow.");
+                    return;
+                }
+                targetType = ChocolateCowType;
+            }
+            else // ReversalTea
+            {
+                if (currentType != StrawberryCowType && currentType != ChocolateCowType)
+                {
+                    ShowError("This cow doesn't need to be restored.");
+                    return;
+                }
+                targetType = animal.modData.TryGetValue(OriginalTypeKey, out string? saved)
+                    ? saved
+                    : "White Cow";
+            }
+
+            // ── Step 6: perform the transformation ────────────────────────────
+            if (!isReversal)
+            {
+                // Persist original type so Reversal Tea can restore it later.
+                animal.modData[OriginalTypeKey] = currentType;
+            }
+            else
+            {
+                animal.modData.Remove(OriginalTypeKey);
+            }
+
+            animal.type.Value = targetType;
+
+            // ReloadTextureIfNeeded(forceReload: true) rebuilds the sprite from
+            // the type string. The old reloadData() / reloadSprite() methods
+            // were removed in SDV 1.6; ReloadTextureIfNeeded is the replacement.
+            // TODO: if the new texture doesn't appear in-game, also call
+            //   animal.reload(animal.homeInterior) to fully reinitialise data.
+            animal.ReloadTextureIfNeeded(forceReload: true);
+
+            // ── Step 7: consume one tea from the stack ────────────────────────
+            player.reduceActiveItemByOne();
+
+            // ── Step 8: show success HUD message ──────────────────────────────
+            string cowName = string.IsNullOrWhiteSpace(animal.displayName)
+                ? "Your cow"
+                : animal.displayName;
+            Game1.addHUDMessage(new HUDMessage(
+                $"{cowName} has been transformed into a {targetType}!",
+                HUDMessage.newQuest_type));
+
+            monitor.Log($"Transformed '{cowName}' from {currentType} → {targetType}.", LogLevel.Debug);
+        }
+
+        // ── Helpers ───────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Returns the first FarmAnimal within 1 tile of <paramref name="cursorTile"/>,
+        /// or null if none is found. Works for any GameLocation because
+        /// GameLocation.Animals is on the base class in SDV 1.6.
+        /// </summary>
+        private static FarmAnimal? FindAnimalAtCursor(GameLocation location, Vector2 cursorTile)
+        {
+            foreach (FarmAnimal animal in location.Animals.Values)
+            {
+                if (IsWithinOneTile(animal.Tile, cursorTile))
+                    return animal;
+            }
+            return null;
+        }
+
+        private static bool IsWithinOneTile(Vector2 animalTile, Vector2 cursorTile)
+        {
+            return Math.Abs(animalTile.X - cursorTile.X) <= 1f &&
+                   Math.Abs(animalTile.Y - cursorTile.Y) <= 1f;
+        }
+
+        private static void ShowError(string message)
+        {
+            Game1.addHUDMessage(new HUDMessage(message, HUDMessage.error_type));
         }
     }
 }

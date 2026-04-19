@@ -6,25 +6,25 @@ namespace SpecialCows
 {
     public class ModEntry : Mod
     {
-        private TransformationHandler? transformationHandler;
+        private TransformationHandler _handler = null!;
 
         public override void Entry(IModHelper helper)
         {
             // TODO: subscribe to GameLaunched here if integration with other mods is needed
 
-            transformationHandler = new TransformationHandler(this.Monitor);
+            _handler = new TransformationHandler(this.Monitor);
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
         }
 
         private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
         {
-            if (!Context.IsWorldReady)
-                return;
+            if (!Context.IsWorldReady) return;
 
-            if (e.Button == SButton.MouseRight || e.Button == SButton.ControllerA)
-            {
-                transformationHandler?.TryTransform(Game1.player, Game1.currentLocation);
-            }
+            // IsActionButton() covers right mouse button and the controller's
+            // context-action button, matching how the player interacts with animals.
+            if (!e.Button.IsActionButton()) return;
+
+            _handler.TryTransform(Game1.player, Game1.currentLocation);
         }
     }
 }

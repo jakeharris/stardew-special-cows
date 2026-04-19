@@ -1,7 +1,7 @@
 {
   "Name": "Special Cows (Content)",
   "Author": "StrawberryMilkMafia",
-  "Version": "1.0.0",
+  "Version": "0.0.1",
   "Description": "Content Patcher pack for Special Cows — items, recipes, mail, and sprites.",
   "UniqueID": "StrawberryMilkMafia.SpecialCows.CP",
   "ContentPackFor": {
