@@ -4,8 +4,9 @@
       "Action": "EditData",
       "Target": "Data/CookingRecipes",
       "Entries": {
-        "Strawberry Ice Cream": "{{ModId}}_StrawberryMilk 1/ignored/SpecialCows.CP_StrawberryIceCream 1/Strawberry Ice Cream/",
-        "Hot Chocolate": "{{ModId}}_ChocolateMilk 1/ignored/SpecialCows.CP_HotChocolate 1/Hot Chocolate/"
+        "Strawberry Ice Cream": "{{ModId}}_StrawberryMilk 1 245 1/ignored/{{ModId}}_StrawberryIceCream 1/Strawberry Ice Cream/",
+        "Chocolate Ice Cream": "{{ModId}}_ChocolateMilk 1 245 1/ignored/{{ModId}}_ChocolateIceCream 1/Chocolate Ice Cream/",
+        "Hot Chocolate": "{{ModId}}_ChocolateMilk 1/ignored/{{ModId}}_HotChocolate 1/Hot Chocolate/"
       },
       "CustomFields": {
         "_TODO_ingredients": "Finalize ingredient lists and counts — add secondary ingredients (e.g. Strawberry, Sugar) once items are confirmed",

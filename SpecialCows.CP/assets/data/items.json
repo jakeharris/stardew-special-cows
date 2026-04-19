@@ -94,7 +94,7 @@
           "Description": "A special herbal brew. Use it on an adult cow to transform it into a strawberry cow.",
           "Type": "Basic",
           "Category": -7,
-          "Price": 500,
+          "Price": 80,
           "Texture": null,
           "SpriteIndex": 0,
           "Edibility": -300,
@@ -114,7 +114,7 @@
           "Description": "A rich herbal brew. Use it on an adult cow to transform it into a chocolate cow.",
           "Type": "Basic",
           "Category": -7,
-          "Price": 500,
+          "Price": 80,
           "Texture": null,
           "SpriteIndex": 1,
           "Edibility": -300,
@@ -134,7 +134,7 @@
           "Description": "A plain herbal brew. Reverts a transformed cow back to its original type.",
           "Type": "Basic",
           "Category": -7,
-          "Price": 300,
+          "Price": 60,
           "Texture": null,
           "SpriteIndex": 2,
           "Edibility": -300,
@@ -144,6 +144,97 @@
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": true,
           "ContextTags": [ "not_giftable" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
+          }
+        },
+        "{{ModId}}_StrawberryIceCream": {
+          "Name": "{{ModId}}_StrawberryIceCream",
+          "DisplayName": "Strawberry Ice Cream",
+          "Description": "A scoop of rich, pink ice cream made from strawberry milk. Summer in a cone.",
+          "Type": "Cooking",
+          "Category": -7,
+          "Price": 135,
+          "Texture": null,
+          "SpriteIndex": 0,
+          "Edibility": 100,
+          "IsDrink": false,
+          "Buffs": [
+            {
+              "Id": "{{ModId}}_StrawberryIceCream_Buff",
+              "Duration": 600,
+              "IsDebuff": false,
+              "GlowColor": null,
+              "CustomAttributes": {
+                "LuckLevel": 1
+              }
+            }
+          ],
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": false,
+          "ContextTags": [ "color_pink" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
+          }
+        },
+        "{{ModId}}_ChocolateIceCream": {
+          "Name": "{{ModId}}_ChocolateIceCream",
+          "DisplayName": "Chocolate Ice Cream",
+          "Description": "A rich scoop of dark chocolate ice cream made from chocolate milk. Deep and indulgent.",
+          "Type": "Cooking",
+          "Category": -7,
+          "Price": 135,
+          "Texture": null,
+          "SpriteIndex": 0,
+          "Edibility": 100,
+          "IsDrink": false,
+          "Buffs": [
+            {
+              "Id": "{{ModId}}_ChocolateIceCream_Buff",
+              "Duration": 600,
+              "IsDebuff": false,
+              "GlowColor": null,
+              "CustomAttributes": {
+                "MiningLevel": 1
+              }
+            }
+          ],
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": false,
+          "ContextTags": [ "color_brown" ],
+          "CustomFields": {
+            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
+          }
+        },
+        "{{ModId}}_HotChocolate": {
+          "Name": "{{ModId}}_HotChocolate",
+          "DisplayName": "Hot Chocolate",
+          "Description": "A warm mug of chocolate milk, steamed to perfection. Cozy and deeply satisfying.",
+          "Type": "Cooking",
+          "Category": -7,
+          "Price": 185,
+          "Texture": null,
+          "SpriteIndex": 0,
+          "Edibility": 58,
+          "IsDrink": true,
+          "Buffs": [
+            {
+              "Id": "{{ModId}}_HotChocolate_Buff",
+              "Duration": 480,
+              "IsDebuff": false,
+              "GlowColor": null,
+              "CustomAttributes": {
+                "MiningLevel": 1,
+                "Defense": 1
+              }
+            }
+          ],
+          "GeodeDrops": null,
+          "ArtifactSpotChances": null,
+          "ExcludeFromShippingCollection": false,
+          "ContextTags": [ "color_brown" ],
           "CustomFields": {
             "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
           }
