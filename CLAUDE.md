@@ -111,10 +111,10 @@ Buff duration unit is unconfirmed (currently 600s ice cream / 480s hot chocolate
 
 | Item | Price | Edibility |
 |---|---|---|
-| Strawberry Milk | 180g | 30 |
-| Large Strawberry Milk | 270g | 50 |
-| Chocolate Milk | 180g | 30 |
-| Large Chocolate Milk | 270g | 50 |
+| Strawberry Milk | 180g | 57 |
+| Large Strawberry Milk | 270g | 75 |
+| Chocolate Milk | 180g | 57 |
+| Large Chocolate Milk | 270g | 75 |
 
 Both milks have `ContextTag: "cow_milk_item"` which makes them valid Cheese Press inputs
 by default. No cheese items exist — artisan goods pipeline was decided against.
