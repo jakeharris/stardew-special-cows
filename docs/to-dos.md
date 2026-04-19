@@ -1,7 +1,7 @@
 # To-Do List
 
-Status as of v0.0.1 scaffold. Sections are roughly in dependency order — art and data must
-land before the gameplay loop is closeable, mail triggers depend on data being stable, etc.
+Sections are roughly in dependency order — art and data must land before the
+gameplay loop is closeable, mail triggers depend on data being stable, etc.
 
 ---
 
@@ -14,65 +14,67 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
   Register via a CP `Load` action targeting `Animals/Strawberry Cow`; update
   `FarmAnimalData.Texture` in `farm_animals.json` to that path.
 - [ ] **Chocolate Cow spritesheet** — same spec as Strawberry Cow.
-- [ ] **Baby Strawberry Cow spritesheet** — matches `Animals/Baby White Cow` layout (64 × 64
-  px, 2 columns × 2 rows, 32 × 32 px per frame). Update `FarmAnimalData.BabyTexture`.
-- [ ] **Baby Chocolate Cow spritesheet** — same spec.
-- [ ] **Item sprites** — all seven items currently fall back to the default object sheet at
-  index 0/1/2, which gives them wrong icons. A single sprite sheet PNG with one 16 × 16 px
-  cell per item is the minimum. Load it via CP, then update each entry in `items.json`:
+- [ ] **Item sprites** — all ten items currently fall back to the default object sheet, giving
+  them wrong icons. A single sprite sheet PNG with one 16 × 16 px cell per item is the
+  minimum. Load it via CP, then update `Texture` and `SpriteIndex` in `items.json`:
   - `StrawberryMilk` / `LargeStrawberryMilk`
   - `ChocolateMilk` / `LargeChocolateMilk`
   - `StrawberryTransformationTea` / `ChocolateTransformationTea` / `ReversalTea`
+  - `StrawberryIceCream` / `ChocolateIceCream` / `HotChocolate`
 
 ---
 
 ## Content & Data
 
-### Tea recipes (players have no way to obtain teas yet)
+### Tea crafting recipes
 
-- [ ] **Add `Data/CraftingRecipes` entries** for all three teas. Decide on ingredients —
-  current candidates: Strawberry + Tea Leaves + Sugar for the strawberry tea; Coffee Bean +
-  Tea Leaves + Sugar for the chocolate tea; plain Tea Leaves for the reversal tea. Add the
-  entries to a new `assets/data/crafting_recipes.json` and wire it into `content.json`.
-- [ ] **Add output items for the artisan cooking recipes** (`StrawberryIceCream`,
-  `HotChocolate`) to `assets/data/items.json` — they are referenced in
-  `assets/data/recipes.json` but have no `Data/Objects` entries yet.
+- [x] **Add `Data/CraftingRecipes` entries** for all three teas.
+  - Strawberry Transformation Tea: 2× Tea Leaves + 1× Strawberry
+  - Chocolate Transformation Tea: 2× Tea Leaves + 1× Coffee Bean
+  - Reversal Tea: 2× Tea Leaves + 1× Quartz
+- [ ] **Verify `%item craftingRecipe <name> %%` is a valid SDV 1.6 mail token.** The Marnie
+  letter uses this syntax to teach the three tea recipes on open. If it is not supported,
+  fall back to granting the recipes via C# on the same `DayStarted` trigger.
+- [ ] **Decide crafting recipe unlock mechanism.** Currently the recipes appear in the
+  crafting menu from day 1, which is probably unintended. The intended unlock is via
+  Marnie's letter (see Mail triggers below), but the recipes are not currently gated.
 
-### Cooking recipes (stubs exist, but are incomplete)
+### Cooking recipes
 
-- [ ] **Finalize ingredient lists** in `assets/data/recipes.json` — ingredient counts are
-  marked TODO. Decide secondary ingredients (e.g. Sugar, Egg) and update the recipe strings.
-- [ ] **Verify recipe unlock** — recipes are intended to be taught via Caroline/Marnie mail.
-  Confirm the `%item cookingRecipe <name>%%` mail token syntax matches the recipe name
-  strings exactly so the game teaches them on mail open.
+- [x] **Add `Data/CookingRecipes` entries** for Strawberry Ice Cream, Chocolate Ice Cream,
+  and Hot Chocolate.
+- [x] **Add `Data/Objects` entries** for all three cooking outputs (`StrawberryIceCream`,
+  `ChocolateIceCream`, `HotChocolate`) in `items.json`, with stats, buffs, and prices.
+- [x] **Finalize ingredient lists** — ice creams require 1× special milk + 1× Sugar (item
+  245). Hot Chocolate requires only 1× Chocolate Milk.
+- [ ] **Verify recipe unlock** — the Demetrius letter uses `%item cookingRecipe <name> %%`
+  tokens. Confirm the recipe name strings in `Data/CookingRecipes` (`Strawberry Ice Cream`,
+  `Chocolate Ice Cream`, `Hot Chocolate`) match the token values exactly.
+- [ ] **Decide Chocolate Ice Cream unlock fallback.** Demetrius's letter teaches all three
+  cooking recipes together. If the letter trigger fails or fires before Chocolate Ice Cream
+  is in the data, the recipe will silently not be learned. Verify the grant works in-game.
 
-### Mail triggers (letters exist, delivery does not)
+### Mail triggers
 
-- [ ] **Wire up heart-gated mail delivery.** The `Data/Mail` entries for
-  `StrawberryMilkMafia.SpecialCows_CarolineTea` and `_MarnieTea` exist, but nothing sends
-  them. Two options:
-  - **CP approach:** add a `Data/Characters/Marnie` / `Data/Characters/Caroline` mail
-    condition via `EditData` using game-state queries on friendship level.
-  - **C# approach:** subscribe to `GameLaunched` or `DayStarted` in `ModEntry` and queue
-    the mail via `Game1.mailbox.Add(...)` when both friendship thresholds are met and the
-    letters haven't been sent yet (check `Game1.player.mailReceived`).
-  - Both-conditions requirement (2♥ Caroline **and** 2♥ Marnie) must be enforced; neither
-    letter should fire until both thresholds are crossed.
-- [ ] **Finalise letter copy** — placeholder text stands in for both letters. Hand to a
-  writer to match Caroline's and Marnie's vanilla voice before release.
-- [ ] **Consider attaching a sample tea** to each letter (one `StrawberryTransformationTea`
-  with Caroline's, one `ChocolateTransformationTea` with Marnie's) so new players can try
-  the mechanic immediately. Use `%item (O)StrawberryMilkMafia.SpecialCows.CP_<id> 1 %%`.
+- [x] **Demetrius cooking letter** (`SpecialCows_DemetriusCooking`) — delivery implemented
+  via `Player.InventoryChanged` hook in `ModEntry.cs`. Fires the first time the player
+  collects any special milk (Strawberry or Chocolate, regular or large); letter arrives
+  the next morning. Teaches all three cooking recipes.
+- [ ] **Marnie tea letter** (`SpecialCows_MarnieTea`) — delivery not yet implemented.
+  Conditions: friendship with Caroline ≥ 500 (2♥) **AND** Caroline's sunroom event seen
+  (event ID `719926`) **AND** friendship with Marnie ≥ 500 (2♥). Implement via a
+  `DayStarted` hook; check `Game1.player.mailReceived` before queuing. Teaches all three
+  tea crafting recipes.
+- [ ] **Finalise letter copy** — both letters have placeholder text. Hand to a writer to
+  match Marnie's and Demetrius's vanilla voices before release.
+- [ ] **Consider attaching a sample tea** to Marnie's letter (one `StrawberryTransformationTea`
+  and one `ChocolateTransformationTea`) so new players can try the mechanic immediately.
+  Use `%item (O){{ModId}}_StrawberryTransformationTea 1 %%` syntax.
 
 ### Artisan goods pipeline
 
-- [ ] **Decide scope.** The original design brief mentions "artisan goods." Options:
-  - Register Strawberry Milk / Chocolate Milk as valid Cheese Press inputs so they produce
-    themed cheeses (`Data/Machines` in SDV 1.6).
-  - Alternatively, keep the cooking recipes (Ice Cream, Hot Chocolate) as the only
-    downstream products and skip cheese entirely.
-- [ ] **If cheese:** add `Data/Objects` entries for Strawberry Cheese / Chocolate Cheese and
-  configure the Cheese Press rules in `Data/Machines`.
+Decided: skip cheese entirely. The cooking recipes (Ice Cream, Hot Chocolate) are the
+only downstream products. No `Data/Machines` work needed.
 
 ---
 
@@ -101,6 +103,9 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
 
 ## Polish & Release Prep
 
+- [ ] **Verify buff duration unit.** Food buff `Duration` is set to 600 (ice creams) and 480
+  (Hot Chocolate) but the unit — seconds, milliseconds, or ticks — is unconfirmed. Test
+  in-game and adjust if buffs feel too short or too long.
 - [ ] **Bump version numbers.** Both manifests are currently `0.0.1`. Decide on a versioning
   scheme and update before any public release.
 - [ ] **README build instructions** — the "Build instructions TBD" stub in `README.md`.
