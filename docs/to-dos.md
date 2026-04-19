@@ -35,9 +35,9 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
 - [ ] **Verify `%item craftingRecipe <name> %%` is a valid SDV 1.6 mail token.** The Marnie
   letter uses this syntax to teach the three tea recipes on open. If it is not supported,
   fall back to granting the recipes via C# on the same `DayStarted` trigger.
-- [ ] **Decide crafting recipe unlock mechanism.** Currently the recipes appear in the
-  crafting menu from day 1, which is probably unintended. The intended unlock is via
-  Marnie's letter (see Mail triggers below), but the recipes are not currently gated.
+- [x] **Gate crafting recipes behind Marnie's letter.** CP `When: HasFlag` condition on
+  the `Data/CraftingRecipes` entry ensures recipes are absent until the Marnie letter has
+  been received (i.e. `mailReceived` contains `StrawberryMilkMafia.SpecialCows_MarnieTea`).
 
 ### Cooking recipes
 
@@ -60,11 +60,10 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
   via `Player.InventoryChanged` hook in `ModEntry.cs`. Fires the first time the player
   collects any special milk (Strawberry or Chocolate, regular or large); letter arrives
   the next morning. Teaches all three cooking recipes.
-- [ ] **Marnie tea letter** (`SpecialCows_MarnieTea`) — delivery not yet implemented.
-  Conditions: friendship with Caroline ≥ 500 (2♥) **AND** Caroline's sunroom event seen
-  (event ID `719926`) **AND** friendship with Marnie ≥ 500 (2♥). Implement via a
-  `DayStarted` hook; check `Game1.player.mailReceived` before queuing. Teaches all three
-  tea crafting recipes.
+- [x] **Marnie tea letter** (`SpecialCows_MarnieTea`) — delivery implemented via
+  `GameLoop.DayStarted` hook in `ModEntry.cs`. Conditions: friendship with Caroline ≥ 500
+  (2♥) **AND** Caroline's sunroom event seen (event ID `719926`) **AND** friendship with
+  Marnie ≥ 500 (2♥). Checks `mailReceived` before queuing to prevent duplicates.
 - [ ] **Finalise letter copy** — both letters have placeholder text. Hand to a writer to
   match Marnie's and Demetrius's vanilla voices before release.
 - [ ] **Consider attaching a sample tea** to Marnie's letter (one `StrawberryTransformationTea`

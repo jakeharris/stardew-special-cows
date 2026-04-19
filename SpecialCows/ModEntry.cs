@@ -9,6 +9,7 @@ namespace SpecialCows
     public class ModEntry : Mod
     {
         private const string DemetriusMailId = "StrawberryMilkMafia.SpecialCows_DemetriusCooking";
+        private const string MarnieTeaMailId = "StrawberryMilkMafia.SpecialCows_MarnieTea";
 
         private static readonly HashSet<string> SpecialMilkIds = new()
         {
@@ -27,10 +28,20 @@ namespace SpecialCows
             _handler = new TransformationHandler(this.Monitor);
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Player.InventoryChanged += this.OnInventoryChanged;
+            helper.Events.GameLoop.DayStarted += this.OnDayStarted;
+        }
 
-            // TODO: implement DayStarted hook to queue StrawberryMilkMafia.SpecialCows_MarnieTea
-            // when all three conditions are met: 2 hearts Caroline, Caroline's sunroom event seen,
-            // and 2 hearts Marnie. Check Game1.player.mailReceived before queuing.
+        private void OnDayStarted(object? sender, DayStartedEventArgs e)
+        {
+            var player = Game1.player;
+            if (player.mailReceived.Contains(MarnieTeaMailId)) return;
+
+            bool carolineFriendship = player.getFriendshipHeartLevelForNPC("Caroline") >= 2;
+            bool sunroomEventSeen = player.eventsSeen.Contains("719926");
+            bool marnieFriendship = player.getFriendshipHeartLevelForNPC("Marnie") >= 2;
+
+            if (carolineFriendship && sunroomEventSeen && marnieFriendship)
+                player.mailForTomorrow.Add(MarnieTeaMailId);
         }
 
         private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)

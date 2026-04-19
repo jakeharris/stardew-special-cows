@@ -3,6 +3,9 @@
     {
       "Action": "EditData",
       "Target": "Data/CraftingRecipes",
+      "When": {
+        "HasFlag |contains=StrawberryMilkMafia.SpecialCows_MarnieTea": "true"
+      },
       "Entries": {
         "{{ModId}}_StrawberryTransformationTea": "815 2 398 1/unused/{{ModId}}_StrawberryTransformationTea 1/false/Strawberry Transformation Tea",
         "{{ModId}}_ChocolateTransformationTea": "815 2 433 1/unused/{{ModId}}_ChocolateTransformationTea 1/false/Chocolate Transformation Tea",
