@@ -156,6 +156,17 @@ docs/
 
 ---
 
+## Keeping docs current
+
+After every change — code or data — update these two files before closing the task:
+
+- `docs/to-dos.md` — mark completed items `[x]`, update wording to reflect what was actually done, and remove stale caveats (e.g. "not yet implemented" notes that are now resolved).
+- `docs/test-plan.md` — remove gap notices that have been addressed, update "not yet implemented" annotations on test cases that are now implemented, and add new test cases for any new behavior.
+
+Neither file needs a perfect rewrite on every pass — just keep them honest about the current state of the mod.
+
+---
+
 ## Code style
 
 - Nullable enabled; use `?` and null-checks rather than suppressing warnings
