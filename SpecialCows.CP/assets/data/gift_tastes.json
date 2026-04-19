@@ -1,0 +1,40 @@
+{
+  "Changes": [
+    {
+      "Action": "EditData",
+      "Target": "Data/NPCGiftTastes",
+      "TextOperations": [
+        {
+          "Operation": "Append",
+          "Target": [ "Entries", "Haley", "1" ],
+          "Value": "(O){{ModId}}_StrawberryMilk (O){{ModId}}_LargeStrawberryMilk",
+          "Delimiter": " "
+        },
+        {
+          "Operation": "Append",
+          "Target": [ "Entries", "Vincent", "1" ],
+          "Value": "(O){{ModId}}_ChocolateIceCream",
+          "Delimiter": " "
+        },
+        {
+          "Operation": "Append",
+          "Target": [ "Entries", "Elliott", "1" ],
+          "Value": "(O){{ModId}}_HotChocolate",
+          "Delimiter": " "
+        },
+        {
+          "Operation": "Append",
+          "Target": [ "Entries", "Robin", "5" ],
+          "Value": "(O){{ModId}}_StrawberryIceCream",
+          "Delimiter": " "
+        },
+        {
+          "Operation": "Append",
+          "Target": [ "Entries", "Abigail", "5" ],
+          "Value": "(O){{ModId}}_ChocolateMilk (O){{ModId}}_LargeChocolateMilk",
+          "Delimiter": " "
+        }
+      ]
+    }
+  ]
+}

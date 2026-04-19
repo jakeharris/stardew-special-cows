@@ -20,6 +20,10 @@
     {
       "Action": "Include",
       "FromFile": "assets/data/farm_animals.json"
+    },
+    {
+      "Action": "Include",
+      "FromFile": "assets/data/gift_tastes.json"
     }
   ]
 }

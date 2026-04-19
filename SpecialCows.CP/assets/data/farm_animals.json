@@ -31,6 +31,7 @@
               "MinimumFriendship": 0
             }
           ],
+          "SellPrice": 1500,
           "BirthType": "White Cow",
           "CustomFields": {
             "_TODO_texture": "Replace Texture and BabyTexture with dedicated Strawberry Cow sprite sheets once art is ready"
@@ -63,6 +64,7 @@
               "MinimumFriendship": 0
             }
           ],
+          "SellPrice": 1500,
           "BirthType": "White Cow",
           "CustomFields": {
             "_TODO_texture": "Replace Texture and BabyTexture with dedicated Chocolate Cow sprite sheets once art is ready"
