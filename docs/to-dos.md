@@ -9,11 +9,9 @@ gameplay loop is closeable, mail triggers depend on data being stable, etc.
 
 Nothing ships without sprites. All texture work blocks the corresponding data entries.
 
-- [ ] **Strawberry Cow spritesheet** — 128 × 128 px, 4 columns × 4 rows, 32 × 32 px per
-  frame. Must match the layout of `Animals/White Cow` so the existing animation indices work.
-  Register via a CP `Load` action targeting `Animals/Strawberry Cow`; update
-  `FarmAnimalData.Texture` in `farm_animals.json` to that path.
-- [ ] **Chocolate Cow spritesheet** — same spec as Strawberry Cow.
+- [x] **Strawberry Cow spritesheet** — sprite at `assets/animals/Strawberry Cow.png`.
+  `FarmAnimalData.Texture` in `farm_animals.json` points to it via `{{InternalAssetKey}}`.
+- [ ] **Chocolate Cow spritesheet** — same spec as Strawberry Cow (adult only; no baby sprite needed).
 - [ ] **Item sprites** — all ten items currently fall back to the default object sheet, giving
   them wrong icons. A single sprite sheet PNG with one 16 × 16 px cell per item is the
   minimum. Load it via CP, then update `Texture` and `SpriteIndex` in `items.json`:
