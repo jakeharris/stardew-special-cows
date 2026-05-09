@@ -13,6 +13,9 @@ obj/
 # Release output
 Mods/
 
+# Original Stardew Valley assets
+original-stardew-sprites/
+
 # OS files
 .DS_Store
 Thumbs.db
