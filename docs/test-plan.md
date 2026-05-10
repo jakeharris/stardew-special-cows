@@ -135,7 +135,7 @@ triggered the morning after the player first collects any special milk.
 - [ ] Chocolate Ice Cream applies **+1 Mining** buff on consumption
 - [ ] Chocolate Ice Cream buff lasts the intended duration (Duration: 600)
 - [ ] Chocolate Ice Cream sells for **175g**
-- [ ] **Hot Chocolate** restores ~**112 Energy** and ~**50 Health** (edibility 45)
+- [ ] **Hot Chocolate** restores ~**80 Energy** and ~**36 Health** (edibility 32)
 - [ ] Hot Chocolate applies **+1 Mining** and **+1 Defense** buffs on consumption
 - [ ] Hot Chocolate buff lasts the intended duration (Duration: 480)
 - [ ] Hot Chocolate plays the drink animation (IsDrink = true), not the eat animation

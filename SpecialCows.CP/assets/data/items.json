@@ -198,7 +198,7 @@
           "Price": 185,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 9,
-          "Edibility": 45,
+          "Edibility": 32,
           "IsDrink": true,
           "Buffs": [
             {
