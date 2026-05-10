@@ -26,8 +26,10 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] Regular milk is produced every day (DaysToProduce = 1)
 - [ ] **Large Strawberry Milk** drops at high friendship / luck / Coopmaster profession (verify deluxe path actually fires — see code TODO)
 - [ ] **Large Chocolate Milk** drops under the same conditions
-- [ ] Milking a freshly transformed cow produces the *new* type's milk, not the old type's (produce cleared on transformation)
-- [ ] Milking a freshly transformed cow works the first day
+- [ ] Milking a freshly transformed cow produces the *new* type's milk, not the old type's (produce is swapped to the new type on transformation if pending, or cleared if already milked)
+- [ ] Milking a freshly transformed cow works the first day (when the cow had pending produce at transformation time)
+- [ ] Transforming a cow that has already been milked today does not grant a second milking — the new type's milk appears tomorrow instead
+- [ ] White → Strawberry (unmilked) → Reversal Tea → milk pail yields vanilla milk same day (produce swapped back); White → Strawberry → milk → Reversal Tea → no milk today (exploit closed)
 - [ ] Strawberry Milk and Large Strawberry Milk appear in the shipping collection when first shipped
 - [ ] Chocolate Milk and Large Chocolate Milk appear in the shipping collection when first shipped
 
