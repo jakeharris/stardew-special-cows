@@ -9,9 +9,12 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 ## 1. Animal Registration
 
 - [ ] Both animals make the standard cow sound
-- [ ] Adult Strawberry Cow and Chocolate Cow display correctly *(needs art — currently uses vanilla White Cow sprite)*
+- [ ] Adult Strawberry Cow and Chocolate Cow display correctly
 - [ ] You cannot buy Strawberry Cow or Chocolate Cow from Marnie
-- [ ] Calves born from Strawberry and Chocolate Cows are normal cows, not Strawberry or Chocolate Cows
+- [ ] Strawberry Cow can become pregnant in a Deluxe Barn (`CanGetPregnant: true`)
+- [ ] Chocolate Cow can become pregnant in a Deluxe Barn
+- [ ] Calves born from Strawberry and Chocolate Cows are normal White Cows (`BirthType: "White Cow"`), not Strawberry or Chocolate Cows
+- [ ] A calf born from a transformed Brown Cow is still a White Cow (BirthType is per-special-type, not per-original-type)
 
 ---
 
@@ -31,10 +34,10 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 
 ## 3. Transformation Items — Registration
 
-- [ ] **Strawberry Transformation Tea** appears as a valid item (name, description, icon) *(needs art)*
-- [ ] **Chocolate Transformation Tea** appears as a valid item *(needs art)*
-- [ ] **Reversal Tea** appears as a valid item *(needs art)*
-- [ ] All three teas show sell price correctly (500g, 500g, 300g)
+- [ ] **Strawberry Transformation Tea** appears as a valid item (name, description, icon)
+- [ ] **Chocolate Transformation Tea** appears as a valid item
+- [ ] **Reversal Tea** appears as a valid item
+- [ ] All three teas show sell price correctly (Strawberry 80g, Chocolate 80g, Reversal 60g)
 - [ ] All three teas are inedible (eating attempt is blocked or gives -300 edibility penalty)
 - [ ] All three teas cannot be gifted to NPCs
 - [ ] All three teas can be shipped (ExcludeFromShippingCollection = false) and appear in the shipping collection
@@ -43,18 +46,12 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 
 ## 4. Crafting Recipes — Tea
 
-- [ ] Strawberry Transformation Tea recipe is visible in the crafting menu
+- [ ] None of the three tea recipes appear in the crafting menu before Marnie's letter has been received
+- [ ] All three tea recipes appear in the crafting menu after Marnie's letter is opened
 - [ ] Strawberry Transformation Tea crafts from **2× Tea Leaves + 1× Strawberry**
-- [ ] Chocolate Transformation Tea recipe is visible in the crafting menu
 - [ ] Chocolate Transformation Tea crafts from **2× Tea Leaves + 1× Coffee Bean**
-- [ ] Reversal Tea recipe is visible in the crafting menu
 - [ ] Reversal Tea crafts from **2× Tea Leaves + 1× Quartz**
 - [ ] Crafting any tea consumes the correct ingredients and produces exactly 1 tea
-
-> **Gap:** There is currently no unlock trigger for the crafting recipes. They
-> may appear in the crafting menu from day 1, which is probably unintended.
-> Confirm desired unlock mechanism (mail? friendship level? skill level?) and
-> implement before release.
 
 ---
 
@@ -64,7 +61,7 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] Holding **Strawberry Transformation Tea** and right-clicking an adult **Brown Cow** transforms it into a Strawberry Cow
 - [ ] Holding **Chocolate Transformation Tea** and right-clicking an adult **White Cow** transforms it into a Chocolate Cow
 - [ ] Holding **Chocolate Transformation Tea** and right-clicking an adult **Brown Cow** transforms it into a Chocolate Cow
-- [ ] The cow's sprite updates immediately after transformation *(needs art for correct sprite; currently reloads to White Cow placeholder)*
+- [ ] The cow's sprite updates immediately after transformation
 - [ ] The original cow type is stored and can be recalled for reversal
 - [ ] One tea is consumed from the stack on success
 - [ ] A HUD success message names the cow and its new type
@@ -105,14 +102,16 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 
 ## 9. Cooking Recipes — Unlock
 
-- [ ] **Strawberry Ice Cream** recipe is taught by Caroline's letter *(mail delivery not yet implemented — recipe cannot currently be unlocked in-game)*
-- [ ] **Hot Chocolate** recipe is taught by Marnie's letter *(same)*
-- [ ] Caroline's letter does not arrive until the player has **2♥ with Caroline AND 2♥ with Marnie** *(delivery not yet implemented)*
-- [ ] Marnie's letter does not arrive until the same combined threshold is met
-- [ ] Neither letter arrives twice (already-received check via `mailReceived`)
+All three cooking recipes (Strawberry Ice Cream, Chocolate Ice Cream, Hot Chocolate)
+are taught by a single letter from Demetrius (`SpecialCows_DemetriusCooking`),
+triggered the morning after the player first collects any special milk.
 
-> **Gap:** **Chocolate Ice Cream** has no unlock mechanism. It is not mentioned
-> in either mail letter. Decide how it is taught before release.
+- [ ] Demetrius's letter arrives the morning after the player first collects Strawberry Milk
+- [ ] Demetrius's letter arrives the morning after the player first collects Chocolate Milk
+- [ ] Picking up Large Strawberry Milk or Large Chocolate Milk also satisfies the trigger (any of the four special milks counts)
+- [ ] Demetrius's letter does not arrive twice (already-received check via `mailReceived`)
+- [ ] Opening the letter teaches Strawberry Ice Cream, Chocolate Ice Cream, and Hot Chocolate
+- [ ] On a save where the letter was received but a recipe is missing (legacy bug recovery), the `SaveLoaded` self-heal in `ModEntry` grants the missing recipes
 
 ---
 
@@ -128,17 +127,17 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 
 ## 11. Cooked Items — Stats and Buffs
 
-- [ ] **Strawberry Ice Cream** restores **100 Energy** and **45 Health**
+- [ ] **Strawberry Ice Cream** restores **100 Energy** and **45 Health** (edibility 40)
 - [ ] Strawberry Ice Cream applies **+1 Luck** buff on consumption
-- [ ] Strawberry Ice Cream buff lasts the intended duration (verify feels right in-game — duration unit unconfirmed, currently set to 600)
-- [ ] Strawberry Ice Cream sells for **135g**
-- [ ] **Chocolate Ice Cream** restores **100 Energy** and **45 Health**
+- [ ] Strawberry Ice Cream buff lasts the intended duration (Duration: 600, matches Spicy Eel)
+- [ ] Strawberry Ice Cream sells for **175g**
+- [ ] **Chocolate Ice Cream** restores **100 Energy** and **45 Health** (edibility 40)
 - [ ] Chocolate Ice Cream applies **+1 Mining** buff on consumption
-- [ ] Chocolate Ice Cream buff lasts the intended duration (600)
-- [ ] Chocolate Ice Cream sells for **135g**
-- [ ] **Hot Chocolate** restores **58 Energy** and **26 Health**
+- [ ] Chocolate Ice Cream buff lasts the intended duration (Duration: 600)
+- [ ] Chocolate Ice Cream sells for **175g**
+- [ ] **Hot Chocolate** restores ~**112 Energy** and ~**50 Health** (edibility 45)
 - [ ] Hot Chocolate applies **+1 Mining** and **+1 Defense** buffs on consumption
-- [ ] Hot Chocolate buff lasts the intended duration (480)
+- [ ] Hot Chocolate buff lasts the intended duration (Duration: 480)
 - [ ] Hot Chocolate plays the drink animation (IsDrink = true), not the eat animation
 - [ ] Hot Chocolate does not apply any Tipsy / alcohol debuff
 - [ ] Hot Chocolate sells for **185g**
@@ -148,9 +147,10 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 
 ## 12. Mail Letters — Content
 
-- [ ] Caroline's letter reads in Caroline's voice and correctly describes the tea mechanic *(copy is placeholder — needs writer pass before release)*
-- [ ] Marnie's letter reads in Marnie's voice *(same)*
+- [ ] Marnie's letter reads in Marnie's voice and correctly describes the tea mechanic
+- [ ] Demetrius's letter reads in Demetrius's voice and correctly hints at his fondness for ice cream
 - [ ] Recipe grant tokens in both letters use the exact recipe name strings that match the entries in `Data/CookingRecipes` (mismatch will silently fail to teach the recipe)
+- [ ] Recipe grant tokens in Marnie's letter use the qualified item IDs for crafting recipes (`{{ModId}}_StrawberryTransformationTea`, etc.)
 
 ---
 
@@ -162,3 +162,14 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] No errors in the SMAPI console when entering and leaving the barn
 - [ ] Shipping screen and end-of-day summary function normally
 - [ ] Removing the mod does not corrupt saves (confirm graceful degradation)
+
+### Cheese Press
+
+The special milks intentionally lack the `cow_milk_item` and `large_milk_item`
+context tags so the press refuses them.
+
+- [ ] Cheese Press refuses Strawberry Milk (does not start processing, no input animation)
+- [ ] Cheese Press refuses Large Strawberry Milk
+- [ ] Cheese Press refuses Chocolate Milk
+- [ ] Cheese Press refuses Large Chocolate Milk
+- [ ] Cheese Press still accepts vanilla Milk, Large Milk, Goat Milk, and Large Goat Milk normally

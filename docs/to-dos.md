@@ -66,7 +66,12 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
 ### Artisan goods pipeline
 
 Decided: skip cheese entirely. The cooking recipes (Ice Cream, Hot Chocolate) are the
-only downstream products. No `Data/Machines` work needed.
+only downstream products.
+
+- [x] **Block special milks from the Cheese Press.** Achieved by stripping the
+  `cow_milk_item` and `large_milk_item` context tags from all four special milks in
+  `items.json`. The vanilla press matches inputs by these tags, so it now ignores
+  them. No `Data/Machines` override needed.
 
 ---
 
@@ -76,6 +81,10 @@ only downstream products. No `Data/Machines` work needed.
   the game's internal logic that calls `GetProduceID(deluxe: true)` vs. `(deluxe: false)` is
   tied to luck, friendship, and possibly profession bonuses. Test that large milk actually
   drops at high friendship before marking produce complete.
+- [x] **Enable special cow pregnancy.** Added `CanGetPregnant: true` to both Strawberry
+  Cow and Chocolate Cow in `farm_animals.json`. Without this, `BirthType: "White Cow"`
+  was unreachable (default is false → no pregnancies → no calves at all). Now special
+  cows can breed in a Deluxe Barn, and their calves are normal White Cows as intended.
 - [ ] **Verify `ReloadTextureIfNeeded` is sufficient after transformation.** If the animal's
   produce or other runtime state doesn't update correctly mid-day, fall back to calling
   `animal.reload(animal.homeInterior)` instead, which does a full re-initialisation.
@@ -95,9 +104,9 @@ only downstream products. No `Data/Machines` work needed.
 
 ## Polish & Release Prep
 
-- [ ] **Verify buff duration unit.** Food buff `Duration` is set to 600 (ice creams) and 480
-  (Hot Chocolate) but the unit — seconds, milliseconds, or ticks — is unconfirmed. Test
-  in-game and adjust if buffs feel too short or too long.
+- [x] **Verify buff duration unit.** Confirmed in-game: `Duration: 600` and `Duration: 480`
+  apply correctly and tick down at the same rate as vanilla buff foods like Spicy Eel.
+  No adjustment needed.
 - [ ] **Bump version numbers.** Both manifests are currently `0.0.1`. Decide on a versioning
   scheme and update before any public release.
 - [x] **README build instructions** — written in `README.md`, covering default macOS path, `.csproj.user` override, and inline `ModsDir` override.
