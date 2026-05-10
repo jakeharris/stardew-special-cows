@@ -116,6 +116,21 @@ Hot Chocolate is `IsDrink: true` — uses drink animation, no alcohol debuff.
 Buff `Duration` matches the unit used by vanilla buff foods like Spicy Eel (600
 ice cream / 480 hot chocolate) — confirmed applying and ticking correctly in-game.
 
+**Recipe key convention.** Cooking recipe keys in `Data/CookingRecipes` are the
+qualified item IDs of the dishes they produce (e.g. `{{ModId}}_HotChocolate`),
+not the display names. The Collections menu wires recipes to dishes via the dish
+item's `Name` field, so the recipe key must match it — using a display name leaves
+Collections falling back to a Torch placeholder ("Provides a modest amount of
+light", 1× Wood + 2× Sap) even when the Kitchen renders fine. The human-readable
+name lives in slot 5 (display name) of the recipe string. Mail tokens
+(`%item cookingRecipe ... %%`) and any direct grants (e.g. the `learn_recipe`
+console command) take the qualified ID.
+
+Recipe string format (5 slots, `/`-separated):
+`<ingredients>/<unused>/<output id qty>/<unlock conditions>/<display name>`.
+Use `null` in the unlock slot for recipes taught only via mail or shop —
+otherwise the formula will try to auto-grant.
+
 Output prices are deliberately set so cooking the ice creams is a slight loss
 versus shipping the milk raw (175g − 180g milk − ~100g sugar). Cooking is for
 the buff, not the margin. Hot Chocolate is roughly break-even on milk (+5g).

@@ -41,18 +41,25 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
   `ChocolateIceCream`, `HotChocolate`) in `items.json`, with stats, buffs, and prices.
 - [x] **Finalize ingredient lists** — ice creams require 1× special milk + 1× Sugar (item
   245). Hot Chocolate requires only 1× Chocolate Milk.
-- [x] **Verify recipe unlock** — `%item cookingRecipe` tokens require the `Data/CookingRecipes`
-  key (e.g. `Strawberry Ice Cream`), not the item ID. Fixed in mail.json. A `SaveLoaded` hook
-  in `ModEntry.cs` also self-heals: if the Demetrius letter is in `mailReceived` but any recipe
-  is missing, it grants them directly — covers saves affected by the original bug and any future
-  token failures.
+- [x] **Verify recipe unlock** — `%item cookingRecipe` tokens take the `Data/CookingRecipes`
+  key. Recipe keys are the qualified item IDs of the dishes they produce (e.g.
+  `{{ModId}}_StrawberryIceCream`), so the Collections menu can match recipes to dishes via
+  the dish item's `Name` field. The human-readable name lives in slot 5 (display name).
+  Mail tokens use the qualified IDs to match. A `SaveLoaded` hook in `ModEntry.cs` self-heals
+  two ways: it migrates any legacy display-name keys (`"Hot Chocolate"`, `"Strawberry Ice
+  Cream"`, `"Chocolate Ice Cream"`) to the new qualified IDs, and if the Demetrius letter is
+  in `mailReceived` but either ice cream recipe is missing, it grants the missing ones directly.
 
 ### Mail triggers
 
 - [x] **Demetrius cooking letter** (`SpecialCows_DemetriusCooking`) — delivery implemented
   via `Player.InventoryChanged` hook in `ModEntry.cs`. Fires the first time the player
   collects any special milk (Strawberry or Chocolate, regular or large); letter arrives
-  the next morning. Teaches all three cooking recipes.
+  the next morning. Teaches all three cooking recipes. A `_demetriusMailScheduled` flag
+  (set on first queue, restored from save state on load) prevents rapid-fire
+  `InventoryChanged` calls from adding duplicate entries to `mailForTomorrow`, which
+  previously caused the letter to reappear on consecutive days and never settle cleanly
+  into `mailReceived` (so it also never appeared in the Letters collection).
 - [x] **Marnie tea letter** (`SpecialCows_MarnieTea`) — delivery implemented via
   `GameLoop.DayStarted` hook in `ModEntry.cs`. Conditions: friendship with Caroline ≥ 500
   (2♥) **AND** Caroline's sunroom event seen (event ID `719926`) **AND** friendship with
@@ -121,3 +128,6 @@ only downstream products.
   with a controller. Confirm the `IsActionButton()` check and tile-cursor logic work
   correctly with a controller before release (controller cursor tile may differ from mouse
   cursor tile).
+- [ ] **Clean up migrations.** There are migrations for saves on previous mod versions, but
+  I've never actually released previous mod versions. These can get cut out once everything
+  looks good.

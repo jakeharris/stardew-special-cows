@@ -23,13 +23,33 @@ namespace SpecialCows
             "StrawberryMilkMafia.SpecialCows.CP_LargeChocolateMilk",
         };
 
-        private static readonly string[] CookingRecipeNames =
+        private const string StrawberryIceCreamRecipe = "StrawberryMilkMafia.SpecialCows.CP_StrawberryIceCream";
+        private const string ChocolateIceCreamRecipe = "StrawberryMilkMafia.SpecialCows.CP_ChocolateIceCream";
+        private const string HotChocolateRecipe = "StrawberryMilkMafia.SpecialCows.CP_HotChocolate";
+
+        // Recipes granted by the Demetrius letter — the SaveLoaded self-heal makes sure
+        // the player has them if the letter was received but the mail token failed to grant.
+        private static readonly string[] DemetriusCookingRecipes =
         {
-            "Strawberry Ice Cream",
-            "Chocolate Ice Cream",
+            StrawberryIceCreamRecipe,
+            ChocolateIceCreamRecipe,
+        };
+
+        // Old display-name keys that pre-date the rename to qualified IDs. Migrated on
+        // SaveLoaded so saves from earlier dev versions don't end up with orphan entries.
+        private static readonly Dictionary<string, string> LegacyCookingRecipeRenames = new()
+        {
+            { "Strawberry Ice Cream", StrawberryIceCreamRecipe },
+            { "Chocolate Ice Cream", ChocolateIceCreamRecipe },
+            { "Hot Chocolate", HotChocolateRecipe },
         };
 
         private TransformationHandler _handler = null!;
+
+        // True once we've queued or already delivered the Demetrius letter this session.
+        // Guards OnInventoryChanged against rapid-fire duplicate additions to mailForTomorrow,
+        // which would cause the letter to appear on multiple consecutive days.
+        private bool _demetriusMailScheduled = false;
 
         public override void Entry(IModHelper helper)
         {
@@ -46,6 +66,37 @@ namespace SpecialCows
                 "Force every adult cow on the farm to immediately give birth to a calf in its home barn. " +
                 "Use this to verify that Strawberry/Chocolate Cow breeding produces the expected calf type.",
                 this.OnPregnateCommand);
+
+            helper.ConsoleCommands.Add(
+                "learn_recipe",
+                "Grant a cooking recipe by name to the current player. " +
+                "Usage: learn_recipe \"Hot Chocolate\". Used for testing/recovery when a shop or mail grant fails.",
+                this.OnLearnRecipeCommand);
+        }
+
+        private void OnLearnRecipeCommand(string command, string[] args)
+        {
+            if (!Context.IsWorldReady)
+            {
+                Monitor.Log("Load a save first.", LogLevel.Warn);
+                return;
+            }
+
+            if (args.Length == 0)
+            {
+                Monitor.Log("Usage: learn_recipe <recipe name>  (quote multi-word names)", LogLevel.Warn);
+                return;
+            }
+
+            string name = string.Join(" ", args);
+            if (Game1.player.cookingRecipes.ContainsKey(name))
+            {
+                Monitor.Log($"Already know cooking recipe '{name}'.", LogLevel.Info);
+                return;
+            }
+
+            Game1.player.cookingRecipes.Add(name, 0);
+            Monitor.Log($"Granted cooking recipe '{name}'.", LogLevel.Info);
         }
 
         // SDV 1.6 has no animal pregnancy *state* — FarmAnimal.dayUpdate() rolls the dice fresh
@@ -148,13 +199,53 @@ namespace SpecialCows
 
         private void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
         {
-            // Guard against the mail token silently failing to teach recipes (e.g. if the
-            // token referenced the wrong key). If the letter was received, ensure all three
-            // cooking recipes are known regardless of how they were (or weren't) granted.
             var player = Game1.player;
+
+            // Migrate legacy display-name recipe keys to their qualified-ID equivalents.
+            // The Collections menu expects the recipe key to match the dish item's Name
+            // field; older dev versions used display names, which left affected saves
+            // showing a Torch fallback in Collections even when the Kitchen worked.
+            foreach (var (oldName, newName) in LegacyCookingRecipeRenames)
+            {
+                if (!player.cookingRecipes.TryGetValue(oldName, out int timesCooked)) continue;
+                player.cookingRecipes.Remove(oldName);
+                if (!player.cookingRecipes.ContainsKey(newName))
+                    player.cookingRecipes.Add(newName, timesCooked);
+            }
+
+            // Heal saves corrupted by the pre-fix duplicate-queuing bug. SDV's Letters
+            // collection skips mailReceived entries that end with %, treating them as
+            // invisible flags. Duplicate copies of the Demetrius letter racing through
+            // mailForTomorrow could land as the % variant, making the letter unreadable
+            // by the Collections menu. Strip the % variant and add the bare ID.
+            string demetriusFlag = DemetriusMailId + "%";
+            if (player.mailReceived.Contains(demetriusFlag) && !player.mailReceived.Contains(DemetriusMailId))
+            {
+                player.mailReceived.Remove(demetriusFlag);
+                player.mailReceived.Add(DemetriusMailId);
+                Monitor.Log("Migrated Demetrius mail flag to readable letter in mailReceived.", LogLevel.Debug);
+            }
+
+            // Broader fallback: if the player already has either ice cream recipe (proof
+            // the letter was effectively received in some form) but the bare ID still
+            // isn't in mailReceived, add it so the Letters collection can display it.
+            if (!player.mailReceived.Contains(DemetriusMailId)
+                && DemetriusCookingRecipes.Any(r => player.cookingRecipes.ContainsKey(r)))
+            {
+                player.mailReceived.Add(DemetriusMailId);
+                Monitor.Log("Synthesised Demetrius mail entry in mailReceived from known recipes.", LogLevel.Debug);
+            }
+
+            // Restore the in-memory flag so OnInventoryChanged won't re-queue a letter
+            // that's already been delivered or read in a prior session.
+            _demetriusMailScheduled = HasOrWillReceiveMail(player, DemetriusMailId);
+
+            // Guard against the mail token silently failing to teach recipes (e.g. if the
+            // token referenced the wrong key). If the letter was received, ensure both
+            // ice cream recipes are known regardless of how they were (or weren't) granted.
             if (!player.mailReceived.Contains(DemetriusMailId)) return;
 
-            foreach (string recipe in CookingRecipeNames)
+            foreach (string recipe in DemetriusCookingRecipes)
             {
                 if (!player.cookingRecipes.ContainsKey(recipe))
                     player.cookingRecipes.Add(recipe, 0);
@@ -203,11 +294,24 @@ namespace SpecialCows
         private void OnInventoryChanged(object? sender, InventoryChangedEventArgs e)
         {
             if (!Context.IsWorldReady || !e.IsLocalPlayer) return;
-            if (HasOrWillReceiveMail(Game1.player, DemetriusMailId)) return;
+
+            // _demetriusMailScheduled is the primary guard: it's set the moment we queue
+            // the letter and restored from save state on load. This prevents rapid-fire
+            // InventoryChanged calls from adding duplicate entries to mailForTomorrow,
+            // which would cause the letter to appear on consecutive days.
+            if (_demetriusMailScheduled) return;
+            if (HasOrWillReceiveMail(Game1.player, DemetriusMailId))
+            {
+                _demetriusMailScheduled = true;
+                return;
+            }
 
             bool gotSpecialMilk = e.Added.Any(item => SpecialMilkIds.Contains(item.ItemId));
             if (gotSpecialMilk)
+            {
+                _demetriusMailScheduled = true;
                 Game1.player.mailForTomorrow.Add(DemetriusMailId);
+            }
         }
     }
 }
