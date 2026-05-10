@@ -103,7 +103,7 @@ only downstream products. No `Data/Machines` work needed.
   in-game and adjust if buffs feel too short or too long.
 - [ ] **Bump version numbers.** Both manifests are currently `0.0.1`. Decide on a versioning
   scheme and update before any public release.
-- [ ] **README build instructions** — the "Build instructions TBD" stub in `README.md`.
+- [x] **README build instructions** — written in `README.md`, covering default macOS path, `.csproj.user` override, and inline `ModsDir` override.
 - [ ] **Localisation.** All display strings (HUD messages, item descriptions, mail text) are
   hardcoded English. Add an `i18n/default.json` file and replace literals with
   `helper.Translation.Get(...)` calls if non-English locales are a goal.
