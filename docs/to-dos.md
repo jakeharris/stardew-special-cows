@@ -81,10 +81,13 @@ only downstream products.
   the game's internal logic that calls `GetProduceID(deluxe: true)` vs. `(deluxe: false)` is
   tied to luck, friendship, and possibly profession bonuses. Test that large milk actually
   drops at high friendship before marking produce complete.
-- [x] **Enable special cow pregnancy.** Added `CanGetPregnant: true` to both Strawberry
-  Cow and Chocolate Cow in `farm_animals.json`. Without this, `BirthType: "White Cow"`
-  was unreachable (default is false → no pregnancies → no calves at all). Now special
-  cows can breed in a Deluxe Barn, and their calves are normal White Cows as intended.
+- [x] **Enable special cow pregnancy and fix calf type inheritance.** `CanGetPregnant: true`
+  in `farm_animals.json` allows breeding in a Deluxe Barn. `BirthType: "White Cow"` stays
+  as a sane data-level default, but a `DayStarted` fixup in `ModEntry.FixupNewbornCalves()`
+  rewrites any age-0 calf born from a special cow to the parent's `OriginalType` (the
+  pre-transformation breed). A transformed White Cow births White Cows; a transformed Brown
+  Cow births Brown Cows. The `pregnate` test command also uses `ResolveCalfType()` so it
+  exercises the same logic as natural birth.
 - [ ] **Verify `ReloadTextureIfNeeded` is sufficient after transformation.** If the animal's
   produce or other runtime state doesn't update correctly mid-day, fall back to calling
   `animal.reload(animal.homeInterior)` instead, which does a full re-initialisation.

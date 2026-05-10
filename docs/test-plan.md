@@ -13,9 +13,11 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] You cannot buy Strawberry Cow or Chocolate Cow from Marnie
 - [ ] Strawberry Cow can become pregnant in a Deluxe Barn
 - [ ] Chocolate Cow can become pregnant in a Deluxe Barn
-- [ ] Calves born from Strawberry and Chocolate Cows are normal White Cows (`BirthType: "White Cow"`), not Strawberry or Chocolate Cows
-- [ ] A calf born from a transformed Brown Cow is a Brown Cow
-- [ ] A calf born from a transformed White Cow is a White Cow
+- [ ] Calves born from Strawberry or Chocolate Cows are never Strawberry or Chocolate Cows themselves
+- [ ] A calf born from a Strawberry/Chocolate Cow whose `OriginalType` is "White Cow" → calf is White Cow
+- [ ] A calf born from a Strawberry/Chocolate Cow whose `OriginalType` is "Brown Cow" → calf is Brown Cow
+- [ ] A calf born from a non-transformed Strawberry/Chocolate Cow (no `OriginalType` modData — not reachable in normal play) → calf defaults to White Cow
+- [ ] After the calf grows to adulthood, it remains the correct vanilla type (White or Brown Cow)
 
 ---
 
