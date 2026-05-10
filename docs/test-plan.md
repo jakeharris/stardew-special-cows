@@ -73,7 +73,7 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 
 - [ ] Holding **Reversal Tea** and right-clicking a Strawberry Cow reverts it to its stored original type
 - [ ] Holding **Reversal Tea** and right-clicking a Chocolate Cow reverts it to its stored original type
-- [x] A cow transformed twice (e.g. White → Strawberry → Chocolate) reverts to **White** (original type stored at first transformation, not overwritten on second)
+- [ ] A cow transformed twice (e.g. White → Strawberry → Chocolate) reverts to **White** (original type stored at first transformation, not overwritten on second)
 - [ ] A reverted cow's sprite updates immediately
 - [ ] One Reversal Tea is consumed on success
 - [ ] A HUD success message confirms the reversion
