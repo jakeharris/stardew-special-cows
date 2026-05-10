@@ -108,7 +108,11 @@ namespace SpecialCows
             if (!isReversal)
             {
                 // Persist original type so Reversal Tea can restore it later.
-                animal.modData[OriginalTypeKey] = currentType;
+                // Only write on first transformation — subsequent transforms must
+                // not overwrite it, or a double-transformed cow reverts to the
+                // intermediate type instead of its true origin.
+                if (!animal.modData.ContainsKey(OriginalTypeKey))
+                    animal.modData[OriginalTypeKey] = currentType;
             }
             else
             {
