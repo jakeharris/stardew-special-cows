@@ -16,7 +16,6 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] Calves born from Strawberry or Chocolate Cows are never Strawberry or Chocolate Cows themselves
 - [ ] A calf born from a Strawberry/Chocolate Cow whose `OriginalType` is "White Cow" → calf is White Cow
 - [ ] A calf born from a Strawberry/Chocolate Cow whose `OriginalType` is "Brown Cow" → calf is Brown Cow
-- [ ] A calf born from a non-transformed Strawberry/Chocolate Cow (no `OriginalType` modData — not reachable in normal play) → calf defaults to White Cow
 - [ ] After the calf grows to adulthood, it remains the correct vanilla type (White or Brown Cow)
 
 ---
@@ -141,6 +140,8 @@ serving as foreshadowing before the player has any special milk.
 - [ ] Hot Chocolate can be cooked at the kitchen with **1× Chocolate Milk**
 - [ ] Each recipe produces exactly the correct output item
 - [ ] Cooked items appear in the Cooking tab of the Collections menu
+- [ ] In the Collections menu, hovering each known recipe shows the **correct** dish description and ingredient list (regression guard: a recipe key that doesn't match its dish item's `Name` field falls back to a Torch placeholder — "Provides a modest amount of light", 1× Wood + 2× Sap)
+- [ ] On a save where any cooking recipe was granted under its old display-name key (`"Hot Chocolate"`, `"Strawberry Ice Cream"`, `"Chocolate Ice Cream"`), the `SaveLoaded` migration in `ModEntry` renames it to the qualified-ID key without losing the times-cooked count
 
 ---
 
