@@ -23,7 +23,7 @@
             {
               "Id": "StrawberryMilk_Regular",
               "Condition": null,
-              "ItemId": "(O){{ModId}}_StrawberryMilk",
+              "ItemId": "{{ModId}}_StrawberryMilk",
               "MinimumFriendship": 0
             }
           ],
@@ -31,7 +31,7 @@
             {
               "Id": "StrawberryMilk_Large",
               "Condition": null,
-              "ItemId": "(O){{ModId}}_LargeStrawberryMilk",
+              "ItemId": "{{ModId}}_LargeStrawberryMilk",
               "MinimumFriendship": 0
             }
           ],
@@ -58,7 +58,7 @@
             {
               "Id": "ChocolateMilk_Regular",
               "Condition": null,
-              "ItemId": "(O){{ModId}}_ChocolateMilk",
+              "ItemId": "{{ModId}}_ChocolateMilk",
               "MinimumFriendship": 0
             }
           ],
@@ -66,7 +66,7 @@
             {
               "Id": "ChocolateMilk_Large",
               "Condition": null,
-              "ItemId": "(O){{ModId}}_LargeChocolateMilk",
+              "ItemId": "{{ModId}}_LargeChocolateMilk",
               "MinimumFriendship": 0
             }
           ],
