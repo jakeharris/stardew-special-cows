@@ -13,7 +13,7 @@
           "Price": 180,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 0,
-          "Edibility": 57,
+          "Edibility": 18,
           "IsDrink": true,
           "Buffs": null,
           "GeodeDrops": null,
@@ -33,7 +33,7 @@
           "Price": 270,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 1,
-          "Edibility": 75,
+          "Edibility": 25,
           "IsDrink": true,
           "Buffs": null,
           "GeodeDrops": null,
@@ -53,7 +53,7 @@
           "Price": 180,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 2,
-          "Edibility": 57,
+          "Edibility": 18,
           "IsDrink": true,
           "Buffs": null,
           "GeodeDrops": null,
@@ -73,7 +73,7 @@
           "Price": 270,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 3,
-          "Edibility": 75,
+          "Edibility": 25,
           "IsDrink": true,
           "Buffs": null,
           "GeodeDrops": null,
@@ -144,7 +144,7 @@
           "Price": 135,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 4,
-          "Edibility": 100,
+          "Edibility": 40,
           "IsDrink": false,
           "Buffs": [
             {
@@ -171,7 +171,7 @@
           "Price": 135,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 5,
-          "Edibility": 100,
+          "Edibility": 40,
           "IsDrink": false,
           "Buffs": [
             {
@@ -198,7 +198,7 @@
           "Price": 185,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 9,
-          "Edibility": 58,
+          "Edibility": 45,
           "IsDrink": true,
           "Buffs": [
             {
