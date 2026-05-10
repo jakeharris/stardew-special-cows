@@ -37,25 +37,28 @@ namespace SpecialCows
             this.monitor = monitor;
         }
 
-        public void TryTransform(Farmer player, GameLocation location)
+        // Returns true if the mod consumed the input (tea was held and the click was on a cow),
+        // whether or not the transformation succeeded. Returns false on early-out paths where
+        // no tea was held or no animal was at the cursor — the game's normal handler should run.
+        public bool TryTransform(Farmer player, GameLocation location)
         {
             // ── Step 1: gate on active item being one of the three teas ───────
             string? teaId = player.ActiveItem?.ItemId;
             if (teaId != StrawberryTeaId &&
                 teaId != ChocolateTeaId  &&
                 teaId != ReversalTeaId)
-                return;
+                return false;
 
             // ── Step 2: find an animal within 1 tile of the cursor ────────────
             // GameLocation.Animals is on the base class (SDV 1.6), so this
             // works for both Farm (outdoor) and AnimalHouse (barn/coop interior)
             // without any location-type casting.
             FarmAnimal? animal = FindAnimalAtCursor(location, Game1.currentCursorTile);
-            if (animal is null) return;
+            if (animal is null) return false;
 
             // ── Step 3: confirm the animal is a recognised cow type ───────────
             string currentType = animal.type.Value;
-            if (!ValidCowTypes.Contains(currentType)) return;
+            if (!ValidCowTypes.Contains(currentType)) return false;
 
             // ── Step 4: confirm the cow is an adult ───────────────────────────
             // FarmAnimal.isAdult() checks age against the FarmAnimalData maturity
@@ -64,7 +67,7 @@ namespace SpecialCows
             if (!animal.isAdult())
             {
                 ShowError("This calf is too young to transform.");
-                return;
+                return true;
             }
 
             // ── Step 5: resolve target type, validate pairing ─────────────────
@@ -76,7 +79,7 @@ namespace SpecialCows
                 if (currentType == StrawberryCowType)
                 {
                     ShowError("This cow is already a strawberry cow.");
-                    return;
+                    return true;
                 }
                 targetType = StrawberryCowType;
             }
@@ -85,7 +88,7 @@ namespace SpecialCows
                 if (currentType == ChocolateCowType)
                 {
                     ShowError("This cow is already a chocolate cow.");
-                    return;
+                    return true;
                 }
                 targetType = ChocolateCowType;
             }
@@ -94,7 +97,7 @@ namespace SpecialCows
                 if (currentType != StrawberryCowType && currentType != ChocolateCowType)
                 {
                     ShowError("This cow doesn't need to be restored.");
-                    return;
+                    return true;
                 }
                 targetType = animal.modData.TryGetValue(OriginalTypeKey, out string? saved)
                     ? saved
@@ -154,6 +157,7 @@ namespace SpecialCows
                 HUDMessage.newQuest_type));
 
             monitor.Log($"Transformed '{cowName}' from {currentType} → {targetType}.", LogLevel.Debug);
+            return true;
         }
 
         // ── Helpers ───────────────────────────────────────────────────────────

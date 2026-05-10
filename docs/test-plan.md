@@ -92,8 +92,9 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] Using **Reversal Tea** on a **White Cow** or **Brown Cow** (not transformed) shows an error and does not consume the item
 - [ ] Using any tea with **no cow within range** does nothing (no message, no item consumed)
 - [ ] Using any tea on a non-cow animal (chicken, goat, etc.) does nothing
-- [ ] The action button during an **open menu** does not trigger transformation (`Game1.activeClickableMenu != null`) *(code TODO — not yet guarded)*
-- [ ] The action button during a **cutscene or event** does not trigger transformation (`Game1.CurrentEvent != null`) *(code TODO — not yet guarded)*
+- [ ] The action button during an **open menu** does not trigger transformation (`Game1.activeClickableMenu != null`)
+- [ ] The action button during a **cutscene or event** does not trigger transformation (`Game1.CurrentEvent != null`)
+- [ ] Right-clicking a cow with tea does **not** open the cow status menu afterward (input is suppressed on consumed events)
 
 ---
 
