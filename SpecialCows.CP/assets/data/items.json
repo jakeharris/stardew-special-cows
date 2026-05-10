@@ -19,7 +19,7 @@
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": false,
-          "ContextTags": [ "cow_milk_item", "color_pink" ],
+          "ContextTags": [ "color_pink" ],
           "CustomFields": {
             "_TODO_price": "Target ~180g; adjust after playtesting"
           }
@@ -39,7 +39,7 @@
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": false,
-          "ContextTags": [ "cow_milk_item", "large_milk_item", "color_pink" ],
+          "ContextTags": [ "color_pink" ],
           "CustomFields": {
             "_TODO_price": "Target ~270g; adjust after playtesting"
           }
@@ -59,7 +59,7 @@
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": false,
-          "ContextTags": [ "cow_milk_item", "color_brown" ],
+          "ContextTags": [ "color_brown" ],
           "CustomFields": {
             "_TODO_price": "Target ~180g; adjust after playtesting"
           }
@@ -79,7 +79,7 @@
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": false,
-          "ContextTags": [ "cow_milk_item", "large_milk_item", "color_brown" ],
+          "ContextTags": [ "color_brown" ],
           "CustomFields": {
             "_TODO_price": "Target ~270g; adjust after playtesting"
           }
