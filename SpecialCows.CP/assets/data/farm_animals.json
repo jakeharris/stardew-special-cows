@@ -38,7 +38,7 @@
           "DisplayName": "Chocolate Cow",
           "Description": "A magical cow that produces velvety chocolate milk.",
           "Sound": "cow",
-          "Texture": "Animals/White Cow",
+          "Texture": "{{InternalAssetKey: assets/animals/Chocolate Cow.png}}",
           "BabyTexture": "Animals/Baby White Cow",
           "SpriteWidth": 32,
           "SpriteHeight": 32,
@@ -62,10 +62,7 @@
             }
           ],
           "SellPrice": 1500,
-          "BirthType": "White Cow",
-          "CustomFields": {
-            "_TODO_texture": "Replace Texture with a dedicated Chocolate Cow sprite sheet once art is ready"
-          }
+          "BirthType": "White Cow"
         }
       }
     }
