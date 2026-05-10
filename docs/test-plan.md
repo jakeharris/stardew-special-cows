@@ -103,16 +103,29 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 
 ## 9. Cooking Recipes — Unlock
 
-All three cooking recipes (Strawberry Ice Cream, Chocolate Ice Cream, Hot Chocolate)
-are taught by a single letter from Demetrius (`SpecialCows_DemetriusCooking`),
-triggered the morning after the player first collects any special milk.
+Strawberry Ice Cream and Chocolate Ice Cream are taught by a letter from Demetrius
+(`SpecialCows_DemetriusCooking`), triggered the morning after the player first collects
+any special milk. Hot Chocolate is sold separately at Gus's Stardrop Saloon (see §9b).
 
 - [ ] Demetrius's letter arrives the morning after the player first collects Strawberry Milk
 - [ ] Demetrius's letter arrives the morning after the player first collects Chocolate Milk
 - [ ] Picking up Large Strawberry Milk or Large Chocolate Milk also satisfies the trigger (any of the four special milks counts)
 - [ ] Demetrius's letter does not arrive twice (already-received check via `mailReceived`)
-- [ ] Opening the letter teaches Strawberry Ice Cream, Chocolate Ice Cream, and Hot Chocolate
-- [ ] On a save where the letter was received but a recipe is missing (legacy bug recovery), the `SaveLoaded` self-heal in `ModEntry` grants the missing recipes
+- [ ] Opening the letter teaches Strawberry Ice Cream and Chocolate Ice Cream (not Hot Chocolate)
+- [ ] On a save where the letter was received but an ice cream recipe is missing (legacy bug recovery), the `SaveLoaded` self-heal in `ModEntry` grants the missing ice cream recipes
+
+---
+
+## 9b. Hot Chocolate Recipe — Gus's Saloon
+
+The Hot Chocolate recipe is sold at the Stardrop Saloon year-round with no unlock gate,
+serving as foreshadowing before the player has any special milk.
+
+- [ ] Hot Chocolate Recipe appears in Gus's shop inventory from day 1 of a new save (before any letters arrive)
+- [ ] Hot Chocolate Recipe costs 500g
+- [ ] Purchasing the recipe teaches Hot Chocolate in the Cooking tab
+- [ ] After purchase, the recipe entry no longer appears in Gus's shop (`AvailableStockLimit: "Player"`)
+- [ ] The recipe persists correctly across save/load
 
 ---
 

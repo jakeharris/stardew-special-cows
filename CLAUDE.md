@@ -97,15 +97,19 @@ SDV 1.6 — all three recipes are correctly granted when the letter is opened.
 
 ## Cooking recipes
 
-Taught by Demetrius's letter (`SpecialCows_DemetriusCooking`). Trigger is implemented:
-`Player.InventoryChanged` fires when the player first collects any special milk; letter
-arrives the next morning.
+**Strawberry Ice Cream and Chocolate Ice Cream** are taught by Demetrius's letter
+(`SpecialCows_DemetriusCooking`). Trigger: `Player.InventoryChanged` fires when the
+player first collects any special milk; letter arrives the next morning.
 
-| Recipe | Ingredients | Output price | Buffs |
-|---|---|---|---|
-| Strawberry Ice Cream | 1× Strawberry Milk + 1× Sugar (245) | 175g | +1 Luck |
-| Chocolate Ice Cream | 1× Chocolate Milk + 1× Sugar (245) | 175g | +1 Mining |
-| Hot Chocolate | 1× Chocolate Milk | 185g | +1 Mining, +1 Defense |
+**Hot Chocolate** is sold at Gus's Stardrop Saloon for 500g, year-round, no unlock
+gate. It serves as foreshadowing — players see it on his shelf before they can obtain
+special milk. Vanilla precedent: Gus already sells the Spaghetti recipe.
+
+| Recipe | Unlock | Ingredients | Output price | Buffs |
+|---|---|---|---|---|
+| Strawberry Ice Cream | Demetrius's letter | 1× Strawberry Milk + 1× Sugar (245) | 175g | +1 Luck |
+| Chocolate Ice Cream | Demetrius's letter | 1× Chocolate Milk + 1× Sugar (245) | 175g | +1 Mining |
+| Hot Chocolate | Buy from Gus (500g) | 1× Chocolate Milk | 185g | +1 Mining, +1 Defense |
 
 All three are `Type: "Cooking"`, `Category: -7`. Not artisan goods (not Category -26).
 Hot Chocolate is `IsDrink: true` — uses drink animation, no alcohol debuff.

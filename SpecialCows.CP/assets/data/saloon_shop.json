@@ -1,0 +1,19 @@
+{
+  "Changes": [
+    {
+      "Action": "EditData",
+      "Target": "Data/Shops",
+      "TargetField": [ "Saloon", "Items" ],
+      "Entries": {
+        "{{ModId}}_HotChocolateRecipe": {
+          "Id": "{{ModId}}_HotChocolateRecipe",
+          "ItemId": "{{ModId}}_HotChocolate",
+          "IsRecipe": true,
+          "Price": 500,
+          "AvailableStock": 1,
+          "AvailableStockLimit": "Player"
+        }
+      }
+    }
+  ]
+}

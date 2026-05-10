@@ -24,6 +24,10 @@
     {
       "Action": "Include",
       "FromFile": "assets/data/gift_tastes.json"
+    },
+    {
+      "Action": "Include",
+      "FromFile": "assets/data/saloon_shop.json"
     }
   ]
 }
