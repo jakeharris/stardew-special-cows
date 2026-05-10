@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
@@ -101,6 +102,9 @@ namespace SpecialCows
             }
 
             // ── Step 6: perform the transformation ────────────────────────────
+            // Capture before swapping type: null means already milked today.
+            bool hadPendingProduce = animal.currentProduce.Value != null;
+
             if (!isReversal)
             {
                 // Persist original type so Reversal Tea can restore it later.
@@ -113,11 +117,19 @@ namespace SpecialCows
 
             animal.type.Value = targetType;
 
-            // Clear any produce the animal was holding before transformation so
-            // it can't be milked for the old type's milk. The next dayUpdate()
-            // will call GetProduceID() against the new FarmAnimalData and set
-            // the correct produce.
-            animal.currentProduce.Value = null;
+            // If produce was pending, swap it to the new type's produce so the
+            // player can milk once today for the new milk. If already milked,
+            // leave null — dayUpdate tomorrow will roll the new type normally.
+            // Keeping this conditional closes the tea→milk→reverse→milk exploit.
+            if (hadPendingProduce)
+            {
+                string? newProduceId = animal.GetAnimalData()?.ProduceItemIds?.FirstOrDefault()?.ItemId;
+                animal.currentProduce.Value = newProduceId;
+            }
+            else
+            {
+                animal.currentProduce.Value = null;
+            }
 
             // ReloadTextureIfNeeded(forceReload: true) rebuilds the sprite from
             // the type string. The old reloadData() / reloadSprite() methods
