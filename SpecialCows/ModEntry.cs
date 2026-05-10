@@ -27,7 +27,6 @@ namespace SpecialCows
         {
             "Strawberry Ice Cream",
             "Chocolate Ice Cream",
-            "Hot Chocolate",
         };
 
         private TransformationHandler _handler = null!;

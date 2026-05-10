@@ -5,7 +5,7 @@
       "Target": "Data/Mail",
       "Entries": {
         "StrawberryMilkMafia.SpecialCows_MarnieTea": "Hello @,^^When I was a little girl, my parents made special teas for the cows, and it made their milk taste amazing! I was looking through an old almanac of theirs and found the recipes. I thought you might like to give it a try!^^The almanac warned that the milk won't make cheese, but I think that's alright. The cows seem to like being a little different!^^  -Marnie^ %item craftingRecipe {{ModId}}_StrawberryTransformationTea %%^ %item craftingRecipe {{ModId}}_ChocolateTransformationTea %%^ %item craftingRecipe {{ModId}}_ReversalTea %%[#]Marnie's Old Almanac",
-        "StrawberryMilkMafia.SpecialCows_DemetriusCooking": "Dear @,^^Mayor Lewis mentioned you were experimenting with new cattle types. It's easier to make in the lab, but I've included recipes for making ice cream that you should be able to recreate in the kitchen.^^It's hard to beat in the hot months!^^  — Demetrius^ %item cookingRecipe Strawberry Ice Cream %%^ %item cookingRecipe Chocolate Ice Cream %%^ %item cookingRecipe Hot Chocolate %%[#]Demetrius' Recipes"
+        "StrawberryMilkMafia.SpecialCows_DemetriusCooking": "Dear @,^^Mayor Lewis mentioned you were experimenting with new cattle types. It's easier to make in the lab, but I've included recipes for making ice cream that you should be able to recreate in the kitchen.^^It's hard to beat in the hot months!^^  — Demetrius^ %item cookingRecipe Strawberry Ice Cream %%^ %item cookingRecipe Chocolate Ice Cream %%[#]Demetrius' Recipes"
       }
     }
   ]
