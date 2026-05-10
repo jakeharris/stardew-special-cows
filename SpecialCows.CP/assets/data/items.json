@@ -89,7 +89,7 @@
           "DisplayName": "Strawberry Transformation Tea",
           "Description": "A special herbal brew. Use it on an adult cow to transform it into a strawberry cow.",
           "Type": "Basic",
-          "Category": -7,
+          "Category": -26,
           "Price": 80,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 6,
@@ -98,7 +98,7 @@
           "Buffs": null,
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
-          "ExcludeFromShippingCollection": true,
+          "ExcludeFromShippingCollection": false,
           "ContextTags": [ "not_giftable" ]
         },
         "{{ModId}}_ChocolateTransformationTea": {
@@ -106,7 +106,7 @@
           "DisplayName": "Chocolate Transformation Tea",
           "Description": "A rich herbal brew. Use it on an adult cow to transform it into a chocolate cow.",
           "Type": "Basic",
-          "Category": -7,
+          "Category": -26,
           "Price": 80,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 7,
@@ -115,7 +115,7 @@
           "Buffs": null,
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
-          "ExcludeFromShippingCollection": true,
+          "ExcludeFromShippingCollection": false,
           "ContextTags": [ "not_giftable" ]
         },
         "{{ModId}}_ReversalTea": {
@@ -123,7 +123,7 @@
           "DisplayName": "Reversal Tea",
           "Description": "A plain herbal brew. Reverts a transformed cow back to its original type.",
           "Type": "Basic",
-          "Category": -7,
+          "Category": -26,
           "Price": 60,
           "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 8,
@@ -132,7 +132,7 @@
           "Buffs": null,
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
-          "ExcludeFromShippingCollection": true,
+          "ExcludeFromShippingCollection": false,
           "ContextTags": [ "not_giftable" ]
         },
         "{{ModId}}_StrawberryIceCream": {
