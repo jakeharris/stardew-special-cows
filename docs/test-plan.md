@@ -41,7 +41,7 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] All three teas show sell price correctly (Strawberry 80g, Chocolate 80g, Reversal 60g)
 - [ ] All three teas are inedible (eating attempt is blocked or gives -300 edibility penalty)
 - [ ] All three teas cannot be gifted to NPCs
-- [ ] All three teas can be shipped (ExcludeFromShippingCollection = false) and appear in the shipping collection
+- [ ] All three teas can be shipped (ExcludeFromShippingCollection = false) and appear in the shipping collection under Artisan Goods (Category -26), not Cooking
 
 ---
 
