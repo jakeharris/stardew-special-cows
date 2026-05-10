@@ -11,6 +11,9 @@ namespace SpecialCows
     {
         private const string DemetriusMailId = "StrawberryMilkMafia.SpecialCows_DemetriusCooking";
         private const string MarnieTeaMailId = "StrawberryMilkMafia.SpecialCows_MarnieTea";
+        private const string OriginalTypeKey = "StrawberryMilkMafia.SpecialCows/OriginalType";
+
+        private static readonly HashSet<string> SpecialCowTypes = new() { "Strawberry Cow", "Chocolate Cow" };
 
         private static readonly HashSet<string> SpecialMilkIds = new()
         {
@@ -80,12 +83,12 @@ namespace SpecialCows
                     }
 
                     long newId = Utility.RandomLong(Game1.random);
-                    var baby = new FarmAnimal(parent.type.Value, newId, parent.ownerID.Value);
+                    var baby = new FarmAnimal(ResolveCalfType(parent), newId, parent.ownerID.Value);
                     baby.parentId.Value = parent.myID.Value;
                     house.animals.Add(newId, baby);
                     house.animalsThatLiveHere.Add(newId);
 
-                    Monitor.Log($"  {parent.Name} ({parent.type.Value}) → calf '{baby.Name}' ({baby.type.Value})", LogLevel.Info);
+                    Monitor.Log($"  {parent.Name} ({parent.type.Value}) → calf '{baby.Name}' ({baby.type.Value}, resolved from OriginalType)", LogLevel.Info);
                     count++;
                 }
             }
@@ -94,6 +97,54 @@ namespace SpecialCows
                 count > 0 ? $"Spawned {count} calf/calves. Sleep and wake to see them as adults, or check the barn now."
                           : "No adult cows found in any barn.",
                 LogLevel.Info);
+        }
+
+        // Vanilla SDV creates calves with BirthType from Data/FarmAnimals, which is always
+        // "White Cow" for special cows. That loses the parent's pre-transformation type.
+        // We scan for age-0 animals (born this morning during dayUpdate) whose parent is a
+        // special cow, and rewrite them to the parent's stored OriginalType.
+        private void FixupNewbornCalves()
+        {
+            // Build a farm-wide ID → animal map so we can look up any parent.
+            var allAnimals = new Dictionary<long, FarmAnimal>();
+            foreach (Building building in Game1.getFarm().buildings)
+            {
+                if (building.GetIndoors() is not AnimalHouse house) continue;
+                foreach (FarmAnimal animal in house.animals.Values)
+                    allAnimals[animal.myID.Value] = animal;
+            }
+
+            foreach (Building building in Game1.getFarm().buildings)
+            {
+                if (building.GetIndoors() is not AnimalHouse house) continue;
+                foreach (FarmAnimal calf in house.animals.Values)
+                {
+                    if (calf.age.Value != 0) continue;
+                    if (!allAnimals.TryGetValue(calf.parentId.Value, out FarmAnimal? parent)) continue;
+                    if (!parent.modData.TryGetValue(OriginalTypeKey, out string? originalType)) continue;
+                    if (!SpecialCowTypes.Contains(calf.type.Value)) continue;
+
+                    Monitor.Log(
+                        $"Fixing newborn calf '{calf.Name}': {calf.type.Value} → {originalType} " +
+                        $"(parent '{parent.Name}' pre-transformation type)",
+                        LogLevel.Debug);
+                    calf.type.Value = originalType;
+                    calf.ReloadTextureIfNeeded(forceReload: true);
+                }
+            }
+        }
+
+        // Resolves the correct calf type for a given parent:
+        // - Transformed special cow → restores the pre-transformation (OriginalType) breed.
+        // - Non-transformed special cow (shouldn't exist in normal play) → White Cow fallback.
+        // - Vanilla cow → its own type (vanilla calves inherit parent type).
+        private static string ResolveCalfType(FarmAnimal parent)
+        {
+            if (parent.modData.TryGetValue(OriginalTypeKey, out string? original))
+                return original;
+            if (SpecialCowTypes.Contains(parent.type.Value))
+                return "White Cow";
+            return parent.type.Value;
         }
 
         private void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
@@ -120,6 +171,8 @@ namespace SpecialCows
 
         private void OnDayStarted(object? sender, DayStartedEventArgs e)
         {
+            FixupNewbornCalves();
+
             var player = Game1.player;
             if (HasOrWillReceiveMail(player, MarnieTeaMailId)) return;
 

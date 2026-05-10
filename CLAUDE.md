@@ -154,9 +154,12 @@ to a cheese economy can revert specific cows.
   via a CP `HasFlag` condition on `Data/CraftingRecipes`.
 - **Cooking is a buff path, not a money path.** Ice cream recipes lose money vs raw shipping;
   Hot Chocolate breaks even. Players cook for the buff or for the food.
-- **Special cows can breed but don't breed true.** `CanGetPregnant: true` with
-  `BirthType: "White Cow"` — calves from a Strawberry/Chocolate Cow are always vanilla
-  White Cows.
+- **Special cows can breed but don't breed true.** `CanGetPregnant: true` in
+  `farm_animals.json`. Calves inherit the parent's *pre-transformation* type, not the
+  special type: a transformed White Cow births White Cows, a transformed Brown Cow births
+  Brown Cows. Enforced by a `DayStarted` fixup (`FixupNewbornCalves` in `ModEntry.cs`)
+  that rewrites age-0 calves using the parent's `OriginalType` modData. `BirthType: "White Cow"`
+  stays in data as a fallback for the unreachable "non-transformed special cow" edge case.
 - **Mid-game vs late-game tension.** Special milk shipping (180g) beats raw vanilla milk
   (125g) but loses to vanilla Cheese (230g via press). Reversal Tea exists so a player
   scaling cheese production can opt cows back out of the special path.
