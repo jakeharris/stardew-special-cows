@@ -139,7 +139,13 @@ namespace SpecialCows
             // context-action button, matching how the player interacts with animals.
             if (!e.Button.IsActionButton()) return;
 
-            _handler.TryTransform(Game1.player, Game1.currentLocation);
+            // Don't run while a menu is open (e.g. cow status menu from a prior
+            // interaction) or during a cutscene — the player can't meaningfully act.
+            if (Game1.activeClickableMenu != null) return;
+            if (Game1.CurrentEvent != null) return;
+
+            if (_handler.TryTransform(Game1.player, Game1.currentLocation))
+                this.Helper.Input.Suppress(e.Button);
         }
 
         private void OnInventoryChanged(object? sender, InventoryChangedEventArgs e)

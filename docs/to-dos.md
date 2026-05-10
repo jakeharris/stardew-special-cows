@@ -93,10 +93,10 @@ only downstream products.
   hit an adjacent animal. Consider tightening to `<= 0` (exact tile match), or switch to
   `FarmAnimal.GetCursorPetBoundingBox()` which already accounts for the animal's visual
   hitbox.
-- [ ] **Suppress action button during unrelated interactions.** `OnButtonPressed` currently
-  calls `TryTransform` on every right-click / controller-A press while the world is ready.
-  Add an early-out if a menu is open (`Game1.activeClickableMenu != null`) or if the player
-  is in an event (`Game1.CurrentEvent != null`).
+- [x] **Suppress action button during unrelated interactions.** `OnButtonPressed` guards
+  early if a menu is open (`Game1.activeClickableMenu != null`) or the player is in an
+  event (`Game1.CurrentEvent != null`). `TryTransform` now returns `bool`; when `true`,
+  `Helper.Input.Suppress` is called so the cow status menu doesn't open after a transformation.
 - [ ] **`GameLaunched` hook** — the TODO stub in `ModEntry.Entry` should be filled in if
   any inter-mod API surface is needed (e.g. GMCM config, SpaceCore compatibility).
 
