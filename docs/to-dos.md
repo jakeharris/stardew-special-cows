@@ -11,14 +11,11 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
 
 - [x] **Strawberry Cow spritesheet** — sprite at `assets/animals/Strawberry Cow.png`.
   `FarmAnimalData.Texture` in `farm_animals.json` points to it via `{{InternalAssetKey}}`.
-- [ ] **Chocolate Cow spritesheet** — same spec as Strawberry Cow (adult only; no baby sprite needed).
-- [ ] **Item sprites** — all ten items currently fall back to the default object sheet, giving
-  them wrong icons. A single sprite sheet PNG with one 16 × 16 px cell per item is the
-  minimum. Load it via CP, then update `Texture` and `SpriteIndex` in `items.json`:
-  - `StrawberryMilk` / `LargeStrawberryMilk`
-  - `ChocolateMilk` / `LargeChocolateMilk`
-  - `StrawberryTransformationTea` / `ChocolateTransformationTea` / `ReversalTea`
-  - `StrawberryIceCream` / `ChocolateIceCream` / `HotChocolate`
+- [x] **Chocolate Cow spritesheet** — same spec as Strawberry Cow (adult only; no baby sprite needed).
+- [x] **Item sprites** — `assets/items/items.png` is a 5×2 sheet of 16×16 px cells.
+  `Texture` and `SpriteIndex` wired up in `items.json` for all ten items:
+  - Row 0: StrawberryMilk (0), LargeStrawberryMilk (1), ChocolateMilk (2), LargeChocolateMilk (3), StrawberryIceCream (4)
+  - Row 1: ChocolateIceCream (5), StrawberryTransformationTea (6), ChocolateTransformationTea (7), ReversalTea (8), HotChocolate (9)
 
 ---
 

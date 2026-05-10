@@ -11,7 +11,7 @@
           "Type": "Basic",
           "Category": -6,
           "Price": 180,
-          "Texture": null,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 0,
           "Edibility": 57,
           "IsDrink": true,
@@ -21,7 +21,6 @@
           "ExcludeFromShippingCollection": false,
           "ContextTags": [ "cow_milk_item", "color_pink" ],
           "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
             "_TODO_price": "Target ~180g; adjust after playtesting"
           }
         },
@@ -32,7 +31,7 @@
           "Type": "Basic",
           "Category": -6,
           "Price": 270,
-          "Texture": null,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
           "SpriteIndex": 1,
           "Edibility": 75,
           "IsDrink": true,
@@ -42,7 +41,6 @@
           "ExcludeFromShippingCollection": false,
           "ContextTags": [ "cow_milk_item", "large_milk_item", "color_pink" ],
           "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
             "_TODO_price": "Target ~270g; adjust after playtesting"
           }
         },
@@ -53,8 +51,8 @@
           "Type": "Basic",
           "Category": -6,
           "Price": 180,
-          "Texture": null,
-          "SpriteIndex": 0,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 2,
           "Edibility": 57,
           "IsDrink": true,
           "Buffs": null,
@@ -63,7 +61,6 @@
           "ExcludeFromShippingCollection": false,
           "ContextTags": [ "cow_milk_item", "color_brown" ],
           "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
             "_TODO_price": "Target ~180g; adjust after playtesting"
           }
         },
@@ -74,8 +71,8 @@
           "Type": "Basic",
           "Category": -6,
           "Price": 270,
-          "Texture": null,
-          "SpriteIndex": 1,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 3,
           "Edibility": 75,
           "IsDrink": true,
           "Buffs": null,
@@ -84,7 +81,6 @@
           "ExcludeFromShippingCollection": false,
           "ContextTags": [ "cow_milk_item", "large_milk_item", "color_brown" ],
           "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready",
             "_TODO_price": "Target ~270g; adjust after playtesting"
           }
         },
@@ -95,18 +91,15 @@
           "Type": "Basic",
           "Category": -7,
           "Price": 80,
-          "Texture": null,
-          "SpriteIndex": 0,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 6,
           "Edibility": -300,
           "IsDrink": false,
           "Buffs": null,
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": true,
-          "ContextTags": [ "not_giftable" ],
-          "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
-          }
+          "ContextTags": [ "not_giftable" ]
         },
         "{{ModId}}_ChocolateTransformationTea": {
           "Name": "{{ModId}}_ChocolateTransformationTea",
@@ -115,18 +108,15 @@
           "Type": "Basic",
           "Category": -7,
           "Price": 80,
-          "Texture": null,
-          "SpriteIndex": 1,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 7,
           "Edibility": -300,
           "IsDrink": false,
           "Buffs": null,
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": true,
-          "ContextTags": [ "not_giftable" ],
-          "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
-          }
+          "ContextTags": [ "not_giftable" ]
         },
         "{{ModId}}_ReversalTea": {
           "Name": "{{ModId}}_ReversalTea",
@@ -135,18 +125,15 @@
           "Type": "Basic",
           "Category": -7,
           "Price": 60,
-          "Texture": null,
-          "SpriteIndex": 2,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 8,
           "Edibility": -300,
           "IsDrink": false,
           "Buffs": null,
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": true,
-          "ContextTags": [ "not_giftable" ],
-          "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
-          }
+          "ContextTags": [ "not_giftable" ]
         },
         "{{ModId}}_StrawberryIceCream": {
           "Name": "{{ModId}}_StrawberryIceCream",
@@ -155,8 +142,8 @@
           "Type": "Cooking",
           "Category": -7,
           "Price": 135,
-          "Texture": null,
-          "SpriteIndex": 0,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 4,
           "Edibility": 100,
           "IsDrink": false,
           "Buffs": [
@@ -173,10 +160,7 @@
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": false,
-          "ContextTags": [ "color_pink" ],
-          "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
-          }
+          "ContextTags": [ "color_pink" ]
         },
         "{{ModId}}_ChocolateIceCream": {
           "Name": "{{ModId}}_ChocolateIceCream",
@@ -185,8 +169,8 @@
           "Type": "Cooking",
           "Category": -7,
           "Price": 135,
-          "Texture": null,
-          "SpriteIndex": 0,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 5,
           "Edibility": 100,
           "IsDrink": false,
           "Buffs": [
@@ -203,10 +187,7 @@
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": false,
-          "ContextTags": [ "color_brown" ],
-          "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
-          }
+          "ContextTags": [ "color_brown" ]
         },
         "{{ModId}}_HotChocolate": {
           "Name": "{{ModId}}_HotChocolate",
@@ -215,8 +196,8 @@
           "Type": "Cooking",
           "Category": -7,
           "Price": 185,
-          "Texture": null,
-          "SpriteIndex": 0,
+          "Texture": "{{InternalAssetKey: assets/items/items.png}}",
+          "SpriteIndex": 9,
           "Edibility": 58,
           "IsDrink": true,
           "Buffs": [
@@ -234,10 +215,7 @@
           "GeodeDrops": null,
           "ArtifactSpotChances": null,
           "ExcludeFromShippingCollection": false,
-          "ContextTags": [ "color_brown" ],
-          "CustomFields": {
-            "_TODO_sprite": "Set Texture path and SpriteIndex once sprite sheet is ready"
-          }
+          "ContextTags": [ "color_brown" ]
         }
       }
     }
