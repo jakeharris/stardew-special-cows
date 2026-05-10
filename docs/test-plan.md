@@ -11,10 +11,11 @@ marked *(needs art)* will show placeholder visuals until sprites land.
 - [ ] Both animals make the standard cow sound
 - [ ] Adult Strawberry Cow and Chocolate Cow display correctly
 - [ ] You cannot buy Strawberry Cow or Chocolate Cow from Marnie
-- [ ] Strawberry Cow can become pregnant in a Deluxe Barn (`CanGetPregnant: true`)
+- [ ] Strawberry Cow can become pregnant in a Deluxe Barn
 - [ ] Chocolate Cow can become pregnant in a Deluxe Barn
 - [ ] Calves born from Strawberry and Chocolate Cows are normal White Cows (`BirthType: "White Cow"`), not Strawberry or Chocolate Cows
-- [ ] A calf born from a transformed Brown Cow is still a White Cow (BirthType is per-special-type, not per-original-type)
+- [ ] A calf born from a transformed Brown Cow is a Brown Cow
+- [ ] A calf born from a transformed White Cow is a White Cow
 
 ---
 
@@ -117,8 +118,8 @@ triggered the morning after the player first collects any special milk.
 
 ## 10. Cooking Recipes — Functionality
 
-- [ ] Strawberry Ice Cream can be cooked at the kitchen with **1× Strawberry Milk**
-- [ ] Chocolate Ice Cream can be cooked at the kitchen with **1× Chocolate Milk**
+- [ ] Strawberry Ice Cream can be cooked at the kitchen with **1× Strawberry Milk, 1x Sugar**
+- [ ] Chocolate Ice Cream can be cooked at the kitchen with **1× Chocolate Milk, 1x Sugar**
 - [ ] Hot Chocolate can be cooked at the kitchen with **1× Chocolate Milk**
 - [ ] Each recipe produces exactly the correct output item
 - [ ] Cooked items appear in the Cooking tab of the Collections menu
@@ -163,7 +164,7 @@ triggered the morning after the player first collects any special milk.
 - [ ] Shipping screen and end-of-day summary function normally
 - [ ] Removing the mod does not corrupt saves (confirm graceful degradation)
 
-### Cheese Press
+### 14. Cheese Press
 
 The special milks intentionally lack the `cow_milk_item` and `large_milk_item`
 context tags so the press refuses them.
