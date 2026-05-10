@@ -78,7 +78,7 @@ appear in the crafting menu before the letter arrives.
 
 | Tea | Ingredients | Price |
 |---|---|---|
-| Strawberry Transformation Tea | 2× Tea Leaves (815) + 1× Strawberry (398) | 80g |
+| Strawberry Transformation Tea | 2× Tea Leaves (815) + 1× Strawberry (400) | 80g |
 | Chocolate Transformation Tea | 2× Tea Leaves (815) + 1× Coffee Bean (433) | 80g |
 | Reversal Tea | 2× Tea Leaves (815) + 1× Quartz (80) | 60g |
 
