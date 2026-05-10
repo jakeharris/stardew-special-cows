@@ -32,6 +32,7 @@
             }
           ],
           "SellPrice": 1500,
+          "CanGetPregnant": true,
           "BirthType": "White Cow"
         },
         "Chocolate Cow": {
@@ -62,6 +63,7 @@
             }
           ],
           "SellPrice": 1500,
+          "CanGetPregnant": true,
           "BirthType": "White Cow"
         }
       }
