@@ -57,7 +57,7 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
   `GameLoop.DayStarted` hook in `ModEntry.cs`. Conditions: friendship with Caroline ≥ 500
   (2♥) **AND** Caroline's sunroom event seen (event ID `719926`) **AND** friendship with
   Marnie ≥ 500 (2♥). Checks `mailReceived` before queuing to prevent duplicates.
-- [ ] **Finalise letter copy** — both letters have placeholder text. Hand to a writer to
+- [x] **Finalise letter copy** — both letters have placeholder text. Hand to a writer to
   match Marnie's and Demetrius's vanilla voices before release.
 - [ ] **Consider attaching a sample tea** to Marnie's letter (one `StrawberryTransformationTea`
   and one `ChocolateTransformationTea`) so new players can try the mechanic immediately.
