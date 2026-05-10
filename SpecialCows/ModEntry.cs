@@ -3,6 +3,7 @@ using System.Linq;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Buildings;
 
 namespace SpecialCows
 {
@@ -37,6 +38,62 @@ namespace SpecialCows
             helper.Events.Player.InventoryChanged += this.OnInventoryChanged;
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
+
+            helper.ConsoleCommands.Add(
+                "pregnate",
+                "Force every adult cow on the farm to immediately give birth to a calf in its home barn. " +
+                "Use this to verify that Strawberry/Chocolate Cow breeding produces the expected calf type.",
+                this.OnPregnateCommand);
+        }
+
+        // SDV 1.6 has no animal pregnancy *state* — FarmAnimal.dayUpdate() rolls the dice fresh
+        // each morning and, on success, instantiates a new FarmAnimal of the parent's type and
+        // adds it to the home AnimalHouse. There's nothing we can flip on the parent to make
+        // birth happen tomorrow; the closest we can get is to replicate the vanilla birth path
+        // ourselves, right now, while the player is awake. That's exactly what we want for
+        // testing — it exercises the same code shape ("which type does the calf become?") that
+        // the real birth would.
+        private void OnPregnateCommand(string command, string[] args)
+        {
+            if (!Context.IsWorldReady)
+            {
+                Monitor.Log("Load a save first.", LogLevel.Warn);
+                return;
+            }
+
+            int count = 0;
+            foreach (Building building in Game1.getFarm().buildings)
+            {
+                if (building.GetIndoors() is not AnimalHouse house) continue;
+
+                // Snapshot adult cows up front; we mutate `house.animals` inside the loop.
+                var parents = house.animals.Values
+                    .Where(a => a.isAdult() && a.type.Value.Contains("Cow"))
+                    .ToList();
+
+                foreach (FarmAnimal parent in parents)
+                {
+                    if (house.isFull())
+                    {
+                        Monitor.Log($"  {house.GetParentLocation()?.Name ?? "Barn"} is full; skipping {parent.Name}.", LogLevel.Warn);
+                        continue;
+                    }
+
+                    long newId = Utility.RandomLong(Game1.random);
+                    var baby = new FarmAnimal(parent.type.Value, newId, parent.ownerID.Value);
+                    baby.parentId.Value = parent.myID.Value;
+                    house.animals.Add(newId, baby);
+                    house.animalsThatLiveHere.Add(newId);
+
+                    Monitor.Log($"  {parent.Name} ({parent.type.Value}) → calf '{baby.Name}' ({baby.type.Value})", LogLevel.Info);
+                    count++;
+                }
+            }
+
+            Monitor.Log(
+                count > 0 ? $"Spawned {count} calf/calves. Sleep and wake to see them as adults, or check the barn now."
+                          : "No adult cows found in any barn.",
+                LogLevel.Info);
         }
 
         private void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
