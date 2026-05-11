@@ -1,7 +1,7 @@
 {
   "Name": "Special Cows",
   "Author": "Strawberry Milk Mafia",
-  "Version": "0.0.3",
+  "Version": "1.0.0",
   "Description": "Adds strawberry and chocolate cow variants via transformation tea.",
   "UniqueID": "StrawberryMilkMafia.SpecialCows",
   "MinimumApiVersion": "4.0.0",

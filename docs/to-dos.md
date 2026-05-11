@@ -66,7 +66,7 @@ Nothing ships without sprites. All texture work blocks the corresponding data en
   Marnie ≥ 500 (2♥). Checks `mailReceived` before queuing to prevent duplicates.
 - [x] **Finalise letter copy** — both letters have placeholder text. Hand to a writer to
   match Marnie's and Demetrius's vanilla voices before release.
-- [ ] **Consider attaching a sample tea** to Marnie's letter (one `StrawberryTransformationTea`
+- [x] **Consider attaching a sample tea** to Marnie's letter (one `StrawberryTransformationTea`
   and one `ChocolateTransformationTea`) so new players can try the mechanic immediately.
   Use `%item (O){{ModId}}_StrawberryTransformationTea 1 %%` syntax.
 
@@ -95,11 +95,11 @@ only downstream products.
   pre-transformation breed). A transformed White Cow births White Cows; a transformed Brown
   Cow births Brown Cows. The `pregnate` test command also uses `ResolveCalfType()` so it
   exercises the same logic as natural birth.
-- [ ] **Verify `ReloadTextureIfNeeded` is sufficient after transformation.** If the animal's
+- [x] **Verify `ReloadTextureIfNeeded` is sufficient after transformation.** If the animal's
   produce or other runtime state doesn't update correctly mid-day, fall back to calling
   `animal.reload(animal.homeInterior)` instead, which does a full re-initialisation.
   There is an existing TODO comment in `TransformationHandler.cs`.
-- [ ] **Targeting precision.** The current check (`Math.Abs(tile.X - cursor.X) <= 1`) can
+- [x] **Targeting precision.** The current check (`Math.Abs(tile.X - cursor.X) <= 1`) can
   hit an adjacent animal. Consider tightening to `<= 0` (exact tile match), or switch to
   `FarmAnimal.GetCursorPetBoundingBox()` which already accounts for the animal's visual
   hitbox.
@@ -107,8 +107,6 @@ only downstream products.
   early if a menu is open (`Game1.activeClickableMenu != null`) or the player is in an
   event (`Game1.CurrentEvent != null`). `TryTransform` now returns `bool`; when `true`,
   `Helper.Input.Suppress` is called so the cow status menu doesn't open after a transformation.
-- [ ] **`GameLaunched` hook** — the TODO stub in `ModEntry.Entry` should be filled in if
-  any inter-mod API surface is needed (e.g. GMCM config, SpaceCore compatibility).
 
 ---
 
@@ -117,14 +115,14 @@ only downstream products.
 - [x] **Verify buff duration unit.** Confirmed in-game: `Duration: 600` and `Duration: 480`
   apply correctly and tick down at the same rate as vanilla buff foods like Spicy Eel.
   No adjustment needed.
-- [ ] **Bump version numbers.** Both manifests are currently `0.0.1`. Decide on a versioning
+- [x] **Bump version numbers.** Both manifests are currently `0.0.1`. Decide on a versioning
   scheme and update before any public release.
 - [x] **README build instructions** — written in `README.md`, covering default macOS path, `.csproj.user` override, and inline `ModsDir` override.
 - [ ] **Localisation.** All display strings (HUD messages, item descriptions, mail text) are
   hardcoded English. Add an `i18n/default.json` file and replace literals with
   `helper.Translation.Get(...)` calls if non-English locales are a goal.
 - [ ] **Nexus / mod page metadata** — description, screenshots, compatibility notes.
-- [ ] **Controller targeting test.** The player who reported testing noted they usually play
+- [x] **Controller targeting test.** The player who reported testing noted they usually play
   with a controller. Confirm the `IsActionButton()` check and tile-cursor logic work
   correctly with a controller before release (controller cursor tile may differ from mouse
   cursor tile).
