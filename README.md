@@ -10,7 +10,16 @@ A SMAPI mod for Stardew Valley that lets players transform adult cows into straw
 - [Content Patcher](https://www.nexusmods.com/stardewvalley/mods/1915) (latest)
 - Stardew Valley 1.6+
 
-### Build
+### Installing the mod
+
+Extract the latest release zip to your mods folder. There will be two folders:
+SpecialCows, and SpecialCows.CP. Both need to be at the root of your mods folder.
+
+Windows: `C:\Program Files (x86)\Steam\steamapps\common\Stardew Valley/Mods`
+Linux: `~/.local/share/Steam/steamapps/common/Stardew Valley/Mods`
+macOS: `~/Library/Application Support/Steam/SteamApps/common/Stardew Valley/Contents/MacOS`
+
+## Development
 
 1. Install the [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0).
 2. Clone this repo.
