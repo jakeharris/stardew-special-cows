@@ -141,7 +141,6 @@ serving as foreshadowing before the player has any special milk.
 - [ ] Each recipe produces exactly the correct output item
 - [ ] Cooked items appear in the Cooking tab of the Collections menu
 - [ ] In the Collections menu, hovering each known recipe shows the **correct** dish description and ingredient list (regression guard: a recipe key that doesn't match its dish item's `Name` field falls back to a Torch placeholder — "Provides a modest amount of light", 1× Wood + 2× Sap)
-- [ ] On a save where any cooking recipe was granted under its old display-name key (`"Hot Chocolate"`, `"Strawberry Ice Cream"`, `"Chocolate Ice Cream"`), the `SaveLoaded` migration in `ModEntry` renames it to the qualified-ID key without losing the times-cooked count
 
 ---
 
