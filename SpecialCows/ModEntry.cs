@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -287,8 +288,31 @@ namespace SpecialCows
             if (Game1.activeClickableMenu != null) return;
             if (Game1.CurrentEvent != null) return;
 
-            if (_handler.TryTransform(Game1.player, Game1.currentLocation))
+            // Controller: use the tile in front of the player.
+            // Mouse/keyboard: use the cursor tile (where the player clicked).
+            // Game1.currentCursorTile is a free-floating cursor on controller —
+            // it only moves when the player explicitly repositions it with the
+            // right stick, so it stays parked over the last interacted tile and
+            // does not track the player's facing direction.
+            Vector2 targetTile = e.Button.TryGetController(out _)
+                ? GetFacingTile(Game1.player)
+                : Game1.currentCursorTile;
+
+            if (_handler.TryTransform(Game1.player, Game1.currentLocation, targetTile))
                 this.Helper.Input.Suppress(e.Button);
+        }
+
+        private static Vector2 GetFacingTile(Farmer player)
+        {
+            var tile = player.Tile;
+            return player.FacingDirection switch
+            {
+                0 => new Vector2(tile.X, tile.Y - 1), // up
+                1 => new Vector2(tile.X + 1, tile.Y), // right
+                2 => new Vector2(tile.X, tile.Y + 1), // down
+                3 => new Vector2(tile.X - 1, tile.Y), // left
+                _ => tile
+            };
         }
 
         private void OnInventoryChanged(object? sender, InventoryChangedEventArgs e)

@@ -39,8 +39,11 @@ namespace SpecialCows
 
         // Returns true if the mod consumed the input (tea was held and the click was on a cow),
         // whether or not the transformation succeeded. Returns false on early-out paths where
-        // no tea was held or no animal was at the cursor — the game's normal handler should run.
-        public bool TryTransform(Farmer player, GameLocation location)
+        // no tea was held or no animal was at the target tile — the game's normal handler should run.
+        //
+        // targetTile should be Game1.currentCursorTile for mouse/keyboard, or the tile in
+        // front of the player (GetFacingTile) for controller — see ModEntry.OnButtonPressed.
+        public bool TryTransform(Farmer player, GameLocation location, Vector2 targetTile)
         {
             // ── Step 1: gate on active item being one of the three teas ───────
             string? teaId = player.ActiveItem?.ItemId;
@@ -49,11 +52,11 @@ namespace SpecialCows
                 teaId != ReversalTeaId)
                 return false;
 
-            // ── Step 2: find an animal within 1 tile of the cursor ────────────
+            // ── Step 2: find an animal within 1 tile of the target ────────────
             // GameLocation.Animals is on the base class (SDV 1.6), so this
             // works for both Farm (outdoor) and AnimalHouse (barn/coop interior)
             // without any location-type casting.
-            FarmAnimal? animal = FindAnimalAtCursor(location, Game1.currentCursorTile);
+            FarmAnimal? animal = FindAnimalAtCursor(location, targetTile);
             if (animal is null) return false;
 
             // ── Step 3: confirm the animal is a recognised cow type ───────────
@@ -169,12 +172,22 @@ namespace SpecialCows
         /// </summary>
         private static FarmAnimal? FindAnimalAtCursor(GameLocation location, Vector2 cursorTile)
         {
+            FarmAnimal? nearest = null;
+            float nearestDist = float.MaxValue;
+
             foreach (FarmAnimal animal in location.Animals.Values)
             {
-                if (IsWithinOneTile(animal.Tile, cursorTile))
-                    return animal;
+                if (!IsWithinOneTile(animal.Tile, cursorTile))
+                    continue;
+
+                float dist = Vector2.Distance(animal.Tile, cursorTile);
+                if (dist < nearestDist)
+                {
+                    nearest = animal;
+                    nearestDist = dist;
+                }
             }
-            return null;
+            return nearest;
         }
 
         private static bool IsWithinOneTile(Vector2 animalTile, Vector2 cursorTile)
